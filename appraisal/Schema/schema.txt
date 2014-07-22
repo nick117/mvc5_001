@@ -1,0 +1,70 @@
+﻿delimiter $$
+
+CREATE DATABASE `d2014` /*!40100 DEFAULT CHARACTER SET utf8 */$$
+delimiter $$
+
+CREATE TABLE `actlog` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `App` varchar(40) NOT NULL,
+  `Pepo` varchar(40) NOT NULL,
+  `Act` varchar(200) NOT NULL,
+  `Ext` text,
+  `Tm` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=362490 DEFAULT CHARSET=utf8$$delimiter $$
+
+CREATE TABLE `dep` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8$$
+
+delimiter $$
+
+CREATE TABLE `emp` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `eid` varchar(12) NOT NULL,
+  `cname` varchar(20) NOT NULL,
+  `dept` int(11) NOT NULL,
+  `title` varchar(40) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_d2012_dep_001` (`dept`),
+  CONSTRAINT `fk_d2012_dep_001` FOREIGN KEY (`dept`) REFERENCES `dep` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=304 DEFAULT CHARSET=utf8$$
+
+delimiter $$
+
+CREATE TABLE `exm` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `subject` varchar(200) NOT NULL,
+  `sn` varchar(8) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8$$
+
+delimiter $$
+
+CREATE TABLE `ots` (
+  `Skey` varchar(50) NOT NULL,
+  `Vl` varchar(200) NOT NULL,
+  PRIMARY KEY (`Skey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
+
+delimiter $$
+
+CREATE TABLE `ts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `emp` int(11) NOT NULL,
+  `exm` int(11) NOT NULL,
+  `boss` int(11) NOT NULL,
+  `vl` decimal(6,2) DEFAULT '0.00',
+  `suggest` text,
+  `lockAudit` bit(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_d2012_emp_001` (`emp`),
+  KEY `fk_d2012_exm_001` (`exm`),
+  KEY `fk_d2012_emp_010` (`emp`),
+  KEY `fk_d2012_emp_011` (`boss`),
+  CONSTRAINT `fk_d2012_emp_010` FOREIGN KEY (`emp`) REFERENCES `emp` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_d2012_emp_011` FOREIGN KEY (`boss`) REFERENCES `emp` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_d2012_exm_001` FOREIGN KEY (`exm`) REFERENCES `exm` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=1033 DEFAULT CHARSET=utf8$$
