@@ -1,0 +1,47 @@
+﻿@model appraisal.Models.ots
+
+@{
+    ViewBag.Title = "編輯";
+}
+
+<h2>編輯</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>考核區間日期</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Skey)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Skey, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Skey)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Vl, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Vl)
+                @Html.ValidationMessageFor(model => model.Vl)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="儲存" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("返回考核區間日期設定", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

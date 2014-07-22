@@ -5,7 +5,7 @@ namespace appraisal.Models
     public class LoginModel
     {
         [Required]
-        [Display(Name = "工號")]
+        [Display(Name = "卡號")]
         public string UserName { get; set; }
 
         [Required]
@@ -13,7 +13,7 @@ namespace appraisal.Models
         [Display(Name = "密碼")]
         public string Password { get; set; }
 
-        [Display(Name = "是否記住工號?")]
+        [Display(Name = "是否記住卡號?")]
         public bool RememberMe { get; set; }
     }
 }

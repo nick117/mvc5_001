@@ -1,0 +1,34 @@
+﻿@model appraisal.Models.exm
+
+@{
+    ViewBag.Title = "明細";
+}
+
+<h2>明細</h2>
+
+<div>
+    <h4>評核種類</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.subject)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.subject)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sn)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("編輯", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("返回評核種類清單", "Index")
+</p>

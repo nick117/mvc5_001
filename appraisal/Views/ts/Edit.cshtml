@@ -1,0 +1,87 @@
+﻿@model appraisal.Models.ts
+
+@{
+    ViewBag.Title = "編輯";
+}
+
+<h2>編輯</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>評核資料</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.emp, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.emp)
+                @Html.DisplayFor(model => model.emp1.eid)
+                @Html.DisplayFor(model => model.emp1.cname)
+                @Html.ValidationMessageFor(model => model.emp)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.exm, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.exm)
+                @Html.DisplayFor(model => model.exm1.subject)
+                @Html.ValidationMessageFor(model => model.exm)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.boss, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.boss)
+                @Html.DisplayFor(model => model.emp2.eid)
+                @Html.DisplayFor(model => model.emp2.cname)
+                @Html.ValidationMessageFor(model => model.boss)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.vl, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.vl)
+                @Html.ValidationMessageFor(model => model.vl)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.suggest, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.suggest, 5, 50, new { })
+                @Html.ValidationMessageFor(model => model.suggest)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.lockAudit, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.lockAudit)
+                @Html.ValidationMessageFor(model => model.lockAudit)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="儲存" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("返回評核紀錄", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

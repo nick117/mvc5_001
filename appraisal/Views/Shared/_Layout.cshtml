@@ -4,9 +4,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
+    <title>@ViewBag.Title - 2014@國光</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @using Microsoft.AspNet.Identity
 
 </head>
 <body>
@@ -25,8 +26,27 @@
                     <li>@Html.ActionLink("首頁", "Index", "Home")</li>
                     <li>@Html.ActionLink("關於", "About", "Home")</li>
                     <li>@Html.ActionLink("連絡方式", "Contact", "Home")</li>
-                </ul>
+                </ul>              
                 @Html.Partial("_LoginPartial")
+                @if (Request.IsAuthenticated)
+                {
+                    if (@User.Identity.GetUserName() == "administrator")
+                    {
+                        <ul class="nav pull-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">後台管理<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="@Url.Action("Index", "emps")"><i class="icon-off"></i>員工</a></li>
+                                    <li><a href="@Url.Action("Index", "deps")"><i class="icon-off"></i>部門</a></li>
+                                    <li><a href="@Url.Action("Index", "exms")"><i class="icon-off"></i>評核類別</a></li>
+                                    <li><a href="@Url.Action("Index", "ots")"><i class="icon-off"></i>評核時間</a></li>
+                                    <li><a href="@Url.Action("Index", "ts")"><i class="icon-off"></i>評核紀錄</a></li>
+                                    <li><a href="@Url.Action("Index", "actlogs")"><i class="icon-off"></i>Logs</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    }
+                } 
             </div>
         </div>
     </div>

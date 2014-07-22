@@ -1,0 +1,58 @@
+﻿@model appraisal.Models.actlog
+
+@{
+    ViewBag.Title = "明細";
+}
+
+<h2>明細</h2>
+
+<div>
+    <h4>使用紀錄</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.App)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.App)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pepo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pepo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Act)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Act)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ext)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ext)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tm)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("編輯", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("返回使用紀錄清單", "Index")
+</p>

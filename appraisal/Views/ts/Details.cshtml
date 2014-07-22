@@ -1,0 +1,71 @@
+﻿@model appraisal.Models.ts
+
+@{
+    ViewBag.Title = "明細";
+}
+
+<h2>明細</h2>
+
+<div>
+    <h4>評核資料</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.emp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.emp)
+            @Html.DisplayFor(model => model.emp1.eid)
+            @Html.DisplayFor(model => model.emp1.cname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.exm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.exm)
+            @Html.DisplayFor(model => model.exm1.subject)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.boss)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.boss)
+            @Html.DisplayFor(model => model.emp2.eid)
+            @Html.DisplayFor(model => model.emp2.cname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.vl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.suggest)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.suggest)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.lockAudit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lockAudit)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("編輯", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("返回評核紀錄", "Index")
+</p>

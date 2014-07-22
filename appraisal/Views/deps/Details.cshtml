@@ -1,0 +1,26 @@
+﻿@model appraisal.Models.dep
+
+@{
+    ViewBag.Title = "明細";
+}
+
+<h2>明細</h2>
+
+<div>
+    <h4>部門資料</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.title)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("編輯", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("返回清單", "Index")
+</p>

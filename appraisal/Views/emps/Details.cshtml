@@ -1,0 +1,50 @@
+﻿@model appraisal.Models.emp
+
+@{
+    ViewBag.Title = "明細";
+}
+
+<h2>明細</h2>
+
+<div>
+    <h4>員工資料</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.eid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.eid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dept)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dept) @Html.DisplayFor(model => model.dep.title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.title)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("編輯", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("返回員工清單", "Index")
+</p>

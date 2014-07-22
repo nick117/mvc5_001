@@ -1,0 +1,33 @@
+﻿@model appraisal.Models.ots
+
+@{
+    ViewBag.Title = "明細";
+}
+
+<h2>明細</h2>
+
+<div>
+    <h4>考核區間日期</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Skey)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Skey)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Vl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vl)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("編輯", "Edit", new { id = Model.Skey }) |
+    @Html.ActionLink("返回考核區間日期設定", "Index")
+</p>

@@ -1,0 +1,39 @@
+﻿@model appraisal.Models.ots
+
+@{
+    ViewBag.Title = "刪除";
+}
+
+<h2>刪除</h2>
+
+<h3>您確定要刪除這個考核區間日期設定嗎?</h3>
+<div>
+    <h4>考核區間日期設定</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Skey)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Skey)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Vl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vl)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="刪除" class="btn btn-default" /> |
+            @Html.ActionLink("返回考核區間日期設定", "Index")
+        </div>
+    }
+</div>

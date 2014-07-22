@@ -1,0 +1,67 @@
+﻿@model appraisal.Models.empEditViewModels
+
+@{
+    ViewBag.Title = "編輯";
+}
+
+<h2>編輯</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>員工資料</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.emp1.id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.emp1.eid, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.emp1.eid)
+                @Html.ValidationMessageFor(model => model.emp1.eid)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.emp1.cname, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.emp1.cname)
+                @Html.ValidationMessageFor(model => model.emp1.cname)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.emp1.dept, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.emp1.dept)
+                @Html.DropDownListFor(x => x.emp1.dept, Model.depList)
+                @Html.ValidationMessageFor(model => model.emp1.dept)               
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.emp1.title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.emp1.title)
+                @Html.ValidationMessageFor(model => model.emp1.title)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="儲存" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("返回員工清單", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

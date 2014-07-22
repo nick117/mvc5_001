@@ -40,9 +40,29 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\MySql.Data.6.8.3\lib\net45\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="mysql.data.entity.EF6, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySQL.Data.Entities.6.8.3.0\lib\net45\mysql.data.entity.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Web, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files\MySQL\MySQL Connector Net 6.8.3\Assemblies\v4.5\MySql.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -159,24 +179,41 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\actlogsController.cs" />
+    <Compile Include="Controllers\depsController.cs" />
+    <Compile Include="Controllers\empsController.cs" />
+    <Compile Include="Controllers\exmsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\otsController.cs" />
+    <Compile Include="Controllers\tsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\actlog.cs" />
+    <Compile Include="Models\d2014.cs" />
+    <Compile Include="Models\dep.cs" />
+    <Compile Include="Models\emp.cs" />
+    <Compile Include="Models\empEditViewModels.cs" />
+    <Compile Include="Models\exm.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ots.cs" />
+    <Compile Include="Models\ts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ClassDiagram1.cd" />
+    <Content Include="ClassDiagram2.cd" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -189,7 +226,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -214,6 +253,36 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\deps\Create.cshtml" />
+    <Content Include="Views\deps\Delete.cshtml" />
+    <Content Include="Views\deps\Details.cshtml" />
+    <Content Include="Views\deps\Edit.cshtml" />
+    <Content Include="Views\deps\Index.cshtml" />
+    <Content Include="Views\emps\Create.cshtml" />
+    <Content Include="Views\emps\Delete.cshtml" />
+    <Content Include="Views\emps\Details.cshtml" />
+    <Content Include="Views\emps\Edit.cshtml" />
+    <Content Include="Views\emps\Index.cshtml" />
+    <Content Include="Views\ots\Create.cshtml" />
+    <Content Include="Views\ots\Delete.cshtml" />
+    <Content Include="Views\ots\Details.cshtml" />
+    <Content Include="Views\ots\Edit.cshtml" />
+    <Content Include="Views\ots\Index.cshtml" />
+    <Content Include="Views\ts\Create.cshtml" />
+    <Content Include="Views\ts\Delete.cshtml" />
+    <Content Include="Views\ts\Details.cshtml" />
+    <Content Include="Views\ts\Edit.cshtml" />
+    <Content Include="Views\ts\Index.cshtml" />
+    <Content Include="Views\exms\Create.cshtml" />
+    <Content Include="Views\exms\Delete.cshtml" />
+    <Content Include="Views\exms\Details.cshtml" />
+    <Content Include="Views\exms\Edit.cshtml" />
+    <Content Include="Views\exms\Index.cshtml" />
+    <Content Include="Views\actlogs\Create.cshtml" />
+    <Content Include="Views\actlogs\Delete.cshtml" />
+    <Content Include="Views\actlogs\Details.cshtml" />
+    <Content Include="Views\actlogs\Edit.cshtml" />
+    <Content Include="Views\actlogs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -224,6 +293,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

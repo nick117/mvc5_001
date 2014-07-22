@@ -1,0 +1,39 @@
+﻿@model IEnumerable<appraisal.Models.ots>
+
+@{
+    ViewBag.Title = "考核區間日期設定";
+}
+
+<h2>考核區間日期設定</h2>
+
+<p>
+    @Html.ActionLink("新增考核區間日期", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            區間代號
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vl)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Skey)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vl)
+        </td>
+        <td>
+            @Html.ActionLink("編輯", "Edit", new { id=item.Skey }) |
+            @Html.ActionLink("明細", "Details", new { id=item.Skey }) |
+            @Html.ActionLink("刪除", "Delete", new { id=item.Skey })
+        </td>
+    </tr>
+}
+
+</table>
