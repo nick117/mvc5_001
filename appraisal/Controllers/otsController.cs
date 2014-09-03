@@ -7,27 +7,32 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using appraisal.Models;
+using appraisal.Filters;
 
 namespace appraisal.Controllers
 {
+    //[Authorize(Users = @"administrator, K1336")]
+    [AuthorizeAD(Groups = "webAdmin01")]
     public class otsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: ots
+        // GET: ots    
+        [LogActionFilter(ControllerName = "評核時間管理", ActionName = "瀏覽")]
         public ActionResult Index()
         {
             return View(db.ots.ToList());
         }
 
         // GET: ots/Details/5
-        public ActionResult Details(string id)
+        [LogActionFilter(ControllerName = "評核時間管理", ActionName = "明細")]
+        public ActionResult Details(string sid)
         {
-            if (id == null)
+            if (sid == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ots ots = db.ots.Find(id);
+            ots ots = db.ots.Find(sid);
             if (ots == null)
             {
                 return HttpNotFound();
@@ -36,6 +41,7 @@ namespace appraisal.Controllers
         }
 
         // GET: ots/Create
+        [LogActionFilter(ControllerName = "評核時間管理", ActionName = "新增")]
         public ActionResult Create()
         {
             return View();
@@ -44,6 +50,7 @@ namespace appraisal.Controllers
         // POST: ots/Create
         // 若要免於過量張貼攻擊，請啟用想要繫結的特定屬性，如需
         // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
+        [LogActionFilter(ControllerName = "評核時間管理", ActionName = "新增完成")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Skey,Vl")] ots ots)
@@ -59,13 +66,14 @@ namespace appraisal.Controllers
         }
 
         // GET: ots/Edit/5
-        public ActionResult Edit(string id)
+        [LogActionFilter(ControllerName = "評核時間管理", ActionName = "編輯")]
+        public ActionResult Edit(string sid)
         {
-            if (id == null)
+            if (sid == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ots ots = db.ots.Find(id);
+            ots ots = db.ots.Find(sid);
             if (ots == null)
             {
                 return HttpNotFound();
@@ -76,6 +84,7 @@ namespace appraisal.Controllers
         // POST: ots/Edit/5
         // 若要免於過量張貼攻擊，請啟用想要繫結的特定屬性，如需
         // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
+         [LogActionFilter(ControllerName = "評核時間管理", ActionName = "編輯完成")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Skey,Vl")] ots ots)
@@ -90,13 +99,14 @@ namespace appraisal.Controllers
         }
 
         // GET: ots/Delete/5
-        public ActionResult Delete(string id)
+        [LogActionFilter(ControllerName = "評核時間管理", ActionName = "刪除")]
+        public ActionResult Delete(string sid)
         {
-            if (id == null)
+            if (sid == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ots ots = db.ots.Find(id);
+            ots ots = db.ots.Find(sid);
             if (ots == null)
             {
                 return HttpNotFound();
@@ -105,11 +115,12 @@ namespace appraisal.Controllers
         }
 
         // POST: ots/Delete/5
+        [LogActionFilter(ControllerName = "評核時間管理", ActionName = "刪除完成")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(string sid)
         {
-            ots ots = db.ots.Find(id);
+            ots ots = db.ots.Find(sid);
             db.ots.Remove(ots);
             db.SaveChanges();
             return RedirectToAction("Index");

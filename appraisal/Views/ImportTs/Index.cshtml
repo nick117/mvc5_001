@@ -1,0 +1,102 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<appraisal.Models.ImportTs>
+@{
+    ViewBag.Title = "匯入資料列表";
+}
+
+<h2>匯入考核資料列表</h2>
+
+<div class="well">
+    <button class="btn btn-primary" data-toggle="modal" data-target="#UploadModal">
+        匯入資料
+    </button>
+</div>
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().CardNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Depart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Group)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().MTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().PTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Name1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Name2)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CardNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Depart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Group)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name2)
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.Partial("~/Views/Shared/_UploadFile.cshtml")
+
+@section scripts
+{
+    <script src="~/Scripts/bootbox.js"></script>
+    <script src="~/Scripts/jquery.form.js"></script>
+    <script src="~/Scripts/project.js"></script>
+    <script src="~/Scripts/project.extends.js"></script>
+    <script src="~/Scripts/project.ZipCode.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var actionUrls = {
+                Upload: '@Url.Action("Upload", "ImportTs")',
+                Import: '@Url.Action("Import", "ImportTs")'
+            };
+            project.ZipCode.Initialize(actionUrls);
+        });
+    </script>
+}
+

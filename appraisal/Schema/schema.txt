@@ -68,3 +68,24 @@ CREATE TABLE `ts` (
   CONSTRAINT `fk_d2012_emp_011` FOREIGN KEY (`boss`) REFERENCES `emp` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_d2012_exm_001` FOREIGN KEY (`exm`) REFERENCES `exm` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=1033 DEFAULT CHARSET=utf8$$
+
+delimiter $$
+
+CREATE TABLE `importts` (
+  `CardNo` varchar(5) NOT NULL,
+  `Name` varchar(45) DEFAULT NULL,
+  `Depart` varchar(45) DEFAULT NULL,
+  `Group` varchar(45) DEFAULT NULL,
+  `MTitle` varchar(45) DEFAULT NULL,
+  `PTitle` varchar(45) DEFAULT NULL,
+  `Personal` varchar(45) DEFAULT NULL,
+  `Job1` varchar(45) DEFAULT NULL,
+  `Job2` varchar(45) DEFAULT NULL,
+  `Type` varchar(4) DEFAULT NULL,
+  `CardNo1` varchar(45) DEFAULT NULL,
+  `Name1` varchar(45) DEFAULT NULL,
+  `CardNo2` varchar(45) DEFAULT NULL,
+  `Name2` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`CardNo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='for ts record import'$$
+

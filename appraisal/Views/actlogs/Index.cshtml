@@ -10,6 +10,7 @@
 
 <p>
     @Html.ActionLink("手動新增記錄", "Create")
+    @Html.ActionLink("記錄全部刪除", "DeleteAll")
     @Html.PagedListPager(Model, page => Url.Action("Index", new { page, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = "", CurrentFilter = ViewBag.CurrentFilter })
                     , new PagedListRenderOptions { LinkToFirstPageFormat = "<<首頁", LinkToPreviousPageFormat = "<上一頁", LinkToNextPageFormat = "下一頁>", LinkToLastPageFormat = "末頁>>", MaximumPageNumbersToDisplay = 5 }) 
 </p>

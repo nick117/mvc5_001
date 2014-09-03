@@ -1,15 +1,19 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
-
+using System.Linq;
 using appraisal.Models;
+using appraisal.Filters;
+using System.DirectoryServices.AccountManagement;
 
 public class AccountController : Controller
 {
+    private ApplicationDbContext db = new ApplicationDbContext();
     public ActionResult Login()
     {
         return this.View();
     }
 
+    [LogActionFilter(ControllerName = "權限管理", ActionName = "開始登入")]
     [HttpPost]
     public ActionResult Login(LoginModel model, string returnUrl)
     {
@@ -20,6 +24,24 @@ public class AccountController : Controller
 
         if (Membership.ValidateUser(model.UserName, model.Password))
         {
+            //取回登入者姓名塞入Session
+            var emp = db.emps;
+            var items = from item in emp select item;
+            items = items.Where(s => s.eid.ToUpper().Equals(model.UserName.ToUpper()));
+            if (items.ToList().Count == 0)
+            { SessionHelper.RealName = "無此卡號"; }
+            else
+            { SessionHelper.RealName = items.ToList().First().cname; }
+            //取回AD Group資料塞入Session
+            var context = new PrincipalContext(ContextType.Domain, "Adimmune");
+            var userPrincipal = UserPrincipal.FindByIdentity(context,
+                                                 IdentityType.SamAccountName,
+                                                 model.UserName);
+            var UGS = userPrincipal.GetAuthorizationGroups();
+            string uGroup = "";
+            foreach (var ug in UGS)
+                uGroup = uGroup + ug.Name + ";";
+            SessionHelper.UserGroup = uGroup;
             FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
             if (this.Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                 && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
@@ -30,13 +52,16 @@ public class AccountController : Controller
             return this.RedirectToAction("Index", "Home");
         }
 
-        this.ModelState.AddModelError(string.Empty, "The user name or password provided is incorrect.");
+        this.ModelState.AddModelError(string.Empty, "您提供的Windows帳號或密碼並不正確,如有疑問請與資訊人員聯絡.");
 
         return this.View(model);
     }
 
+    [LogActionFilter(ControllerName = "權限管理", ActionName = "已登出")]
     public ActionResult LogOff()
     {
+        SessionHelper.UserGroup = "";
+        SessionHelper.RealName = "";
         FormsAuthentication.SignOut();
 
         return this.RedirectToAction("Index", "Home");

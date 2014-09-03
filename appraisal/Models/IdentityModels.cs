@@ -26,6 +26,8 @@ namespace appraisal.Models
         public System.Data.Entity.DbSet<appraisal.Models.exm> exms { get; set; }
 
         public System.Data.Entity.DbSet<appraisal.Models.actlog> actlogs { get; set; }
+
+        public System.Data.Entity.DbSet<appraisal.Models.ImportTs> importtss { get; set; }
     }
 
     public static class DefaultValues

@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
+using FluentSecurity;
 
 namespace appraisal
 {
@@ -7,7 +8,9 @@ namespace appraisal
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            //加入Fluent Security的Attribute，第二個參數為0表示最優先。
+            filters.Add(new HandleSecurityAttribute(), 0);
+            filters.Add(new HandleErrorAttribute());           
         }
     }
 }

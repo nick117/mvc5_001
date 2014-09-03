@@ -8,30 +8,33 @@
 
 <h2>考核紀錄</h2>
 
-<p>
-    @Html.ActionLink("新增", "Create")
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = "", CurrentFilter = ViewBag.CurrentFilter })
+<p>@if (Session["UserGroup"].ToString().Contains("webAdmin01;"))
+      {@Html.ActionLink("新增", "Create", new { Page = Model.PageNumber, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter })}
+    <button class="btn btn-primary" id="ButtonExport" name="ButtonExport">
+        匯出資料
+    </button>                                                                                                                                                                                           
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter})
                     , new PagedListRenderOptions { LinkToFirstPageFormat = "<<首頁", LinkToPreviousPageFormat = "<上一頁", LinkToNextPageFormat = "下一頁>", LinkToLastPageFormat = "末頁>>", MaximumPageNumbersToDisplay = 5 })
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("卡號", "Index", new { page = 1, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.NameSortParm, searchString = "", CurrentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("卡號", "Index", new { page = 1, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.IDSortParm, searchString =ViewBag.CurrentFilter })
         </th>
         <th>
-            員工姓名
+            @Html.ActionLink("員工姓名", "Index", new { page = 1, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.NameSortParm, searchString = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("部門名稱", "Index", new { page = 1, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.DateSortParm, searchString = "", CurrentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("部門名稱", "Index", new { page = 1, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.DeptSortParm, searchString = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().exm1.subject)
+            @Html.ActionLink("評核類別", "Index", new { page = 1, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.SubjSortParm, searchString = ViewBag.CurrentFilter })
         </th>
         <th>
-            主管姓名
+            @Html.ActionLink("主管姓名", "Index", new { page = 1, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.MangSortParm, searchString = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().vl)
+            @Html.ActionLink("評核分數", "Index", new { page = 1, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.VLSortParm, searchString = ViewBag.CurrentFilter })
         </th>
         <th></th>
     </tr>
@@ -57,9 +60,11 @@
             @Html.DisplayFor(modelItem => item.vl)
         </td>
         <td>
-            @Html.ActionLink("編輯", "Edit", new { id=item.id }) |
-            @Html.ActionLink("明細", "Details", new { id=item.id }) |
-            @Html.ActionLink("刪除", "Delete", new { id=item.id })
+            @if (Session["UserGroup"].ToString().Contains("webAdmin01;"))
+            {@Html.ActionLink("編輯", "Edit", new { id = item.id, Page = Model.PageNumber, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter })}             
+            | @Html.ActionLink("明細", "Details", new { id = item.id, Page = Model.PageNumber, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter }) |
+            @if (Session["UserGroup"].ToString().Contains("webAdmin01;")) 
+            {@Html.ActionLink("刪除", "Delete", new { id = item.id, Page = Model.PageNumber, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter }) }             
         </td>
     </tr>
 }
@@ -78,9 +83,29 @@
         <fieldset>
             設定每頁筆數 :
             @Html.DropDownList("ItemsPerPage", itemsPerPageList, new { @id = "ItemsPerPageList" })
-            尋找關鍵字: @Html.TextBox("searchString")
+            尋找關鍵字(輸入*可以取消查詢條件): @Html.TextBox("searchString")
             前往頁次: @Html.TextBox("page")
             <input type="submit" value="送出" />
         </fieldset>
     }
+}
+
+@section scripts
+{
+    <script src="~/Scripts/bootbox.js"></script>
+    <script src="~/Scripts/jquery.form.js"></script>
+    <script src="~/Scripts/project.js"></script>
+    <script src="~/Scripts/project.extends.js"></script>
+    <script src="~/Scripts/project.ZipCode.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var actionUrls = {
+                Upload: '@Url.Action("Upload", "ts")',
+                Import: '@Url.Action("Import", "ts")',
+                HasData: '@Url.Action("HasData", "ts")',
+                ExportData: '@Url.Action("Export", "ts")'
+            };
+            project.ZipCode.Initialize(actionUrls);
+        });
+    </script>
 }

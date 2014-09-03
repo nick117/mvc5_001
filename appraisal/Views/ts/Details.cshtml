@@ -66,6 +66,7 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("編輯", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("返回評核紀錄", "Index")
+@if (Session["UserGroup"].ToString().Contains("webAdmin01;"))
+{@Html.ActionLink("編輯", "Edit", new { id = Model.id, Page = ViewBag.CurrentPage, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter }) }    
+     | @Html.ActionLink("返回評核紀錄", "Index", new { page = ViewBag.CurrentPage, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter })
 </p>

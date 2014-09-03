@@ -9,8 +9,8 @@
 <h2>員工清單</h2>
 
 <p>
-    @Html.ActionLink("新增員工", "Create")
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = "", CurrentFilter = ViewBag.CurrentFilter })
+    @Html.ActionLink("新增員工", "Create", new { Page = Model.PageNumber, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter })
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter })
                     , new PagedListRenderOptions { LinkToFirstPageFormat = "<<首頁", LinkToPreviousPageFormat = "<上一頁", LinkToNextPageFormat = "下一頁>", LinkToLastPageFormat = "末頁>>", MaximumPageNumbersToDisplay = 5 })
 </p>
 <table class="table">
@@ -19,7 +19,7 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().id)
         </th>
         <th>
-            @Html.ActionLink("卡號", "Index", new { page = 1, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.NameSortParm, searchString = "", CurrentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("卡號", "Index", new { page = 1, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.NameSortParm, searchString = ViewBag.CurrentFilter })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().cname)
@@ -28,7 +28,7 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().dept)
         </th>
         <th>
-            @Html.ActionLink("部門名稱", "Index", new { page = 1, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.DateSortParm, searchString = "", CurrentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("部門名稱", "Index", new { page = 1, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.DateSortParm, searchString =  ViewBag.CurrentFilter })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().title)
@@ -60,9 +60,9 @@
             @Html.DisplayFor(modelItem => item.title)
         </td>
         <td>
-            @Html.ActionLink("編輯", "Edit", new { id = item.id }) |
-            @Html.ActionLink("明細", "Details", new { id = item.id }) |
-            @Html.ActionLink("刪除", "Delete", new { id = item.id })
+            @Html.ActionLink("編輯", "Edit", new { id = item.id, Page = Model.PageNumber, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString =  ViewBag.CurrentFilter }) |
+            @Html.ActionLink("明細", "Details", new { id = item.id, Page = Model.PageNumber, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString =  ViewBag.CurrentFilter }) |
+            @Html.ActionLink("刪除", "Delete", new { id = item.id, Page = Model.PageNumber, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter })
         </td>
     </tr>
 }
@@ -81,7 +81,7 @@
         <fieldset>
             設定每頁筆數 :
             @Html.DropDownList("ItemsPerPage", itemsPerPageList, new { @id = "ItemsPerPageList" })
-            尋找關鍵字: @Html.TextBox("searchString")
+            尋找關鍵字(輸入*可以取消查詢條件): @Html.TextBox("searchString")
             前往頁次: @Html.TextBox("page")
             <input type="submit" value="送出" />
         </fieldset>

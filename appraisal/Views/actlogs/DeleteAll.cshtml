@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "紀錄全部刪除";
+}
+
+<h2>紀錄全部刪除</h2>
+
+<h3>您想清楚了確定要刪除[全部]使用紀錄嗎?</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="我很確定要全部刪除" class="btn btn-default" /> |
+        @Html.ActionLink("返回使用紀錄清單", "Index")
+    </div>
+}
+

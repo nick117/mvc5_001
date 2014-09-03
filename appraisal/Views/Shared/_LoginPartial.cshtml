@@ -7,7 +7,7 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("您好 " + User.Identity.GetUserName() + "!", "Index", "Home", null, new { @class = "navbar-brand" })
+            @Html.ActionLink("Hello," + User.Identity.GetUserName() + Session["RealName"] + "您好!", "Index", "Home", null, new { @class = "navbar-brand" })
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">登出</a></li>
     </ul>

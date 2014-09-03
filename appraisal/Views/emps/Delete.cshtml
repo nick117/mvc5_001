@@ -51,7 +51,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="刪除" class="btn btn-default" /> |
-            @Html.ActionLink("返回員工清單", "Index")
+            @Html.ActionLink("返回員工清單", "Index", new { page = ViewBag.CurrentPage, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter })
         </div>
     }
 </div>

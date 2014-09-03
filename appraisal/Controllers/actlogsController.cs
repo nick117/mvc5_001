@@ -7,15 +7,18 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using appraisal.Models;
+using appraisal.Filters;
 using PagedList;
 
 namespace appraisal.Controllers
 {
+    [AuthorizeAD(Groups = "webAdmin01")]
     public class actlogsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: actlogs
+        // GET: actlogs    
+        [LogActionFilter(ControllerName = "Logs管理", ActionName = "瀏覽")]
         public ActionResult Index(int? page, int? itemsPerPage, string sortOrder, string currentFilter, string searchString)
         {
             ViewBag.CurrentItemsPerPage = itemsPerPage;
@@ -75,6 +78,7 @@ namespace appraisal.Controllers
         }
 
         // GET: actlogs/Create
+        [LogActionFilter(ControllerName = "Logs管理", ActionName = "新增")]
         public ActionResult Create()
         {
             return View();
@@ -83,6 +87,7 @@ namespace appraisal.Controllers
         // POST: actlogs/Create
         // 若要免於過量張貼攻擊，請啟用想要繫結的特定屬性，如需
         // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
+        [LogActionFilter(ControllerName = "Logs管理", ActionName = "新增完成")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,App,Pepo,Act,Ext,Tm")] actlog actlog)
@@ -98,6 +103,7 @@ namespace appraisal.Controllers
         }
 
         // GET: actlogs/Edit/5
+        [LogActionFilter(ControllerName = "Logs管理", ActionName = "編輯")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -115,6 +121,7 @@ namespace appraisal.Controllers
         // POST: actlogs/Edit/5
         // 若要免於過量張貼攻擊，請啟用想要繫結的特定屬性，如需
         // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
+        [LogActionFilter(ControllerName = "Logs管理", ActionName = "編輯完成")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,App,Pepo,Act,Ext,Tm")] actlog actlog)
@@ -129,6 +136,7 @@ namespace appraisal.Controllers
         }
 
         // GET: actlogs/Delete/5
+        [LogActionFilter(ControllerName = "Logs管理", ActionName = "刪除")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -144,6 +152,7 @@ namespace appraisal.Controllers
         }
 
         // POST: actlogs/Delete/5
+        [LogActionFilter(ControllerName = "Logs管理", ActionName = "刪除完成")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -151,6 +160,22 @@ namespace appraisal.Controllers
             actlog actlog = db.actlogs.Find(id);
             db.actlogs.Remove(actlog);
             db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [LogActionFilter(ControllerName = "Logs管理", ActionName = "全部刪除")]
+        public ActionResult DeleteAll()
+        {
+            return View();
+        }
+
+        [LogActionFilter(ControllerName = "Logs管理", ActionName = "全部刪除完成")]
+        [HttpPost, ActionName("DeleteAll")]
+        public ActionResult DeleteAllConfirmed()
+        {
+//            db.actlogs.RemoveRange(db.actlogs);
+//            db.SaveChanges();
+            db.Database.ExecuteSqlCommandAsync(@"DELETE FROM actlog");
             return RedirectToAction("Index");
         }
 

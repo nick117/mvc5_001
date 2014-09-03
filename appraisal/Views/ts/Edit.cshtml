@@ -1,4 +1,4 @@
-﻿@model appraisal.Models.ts
+﻿@model appraisal.Models.tsEditViewModels
 
 @{
     ViewBag.Title = "編輯";
@@ -15,58 +15,62 @@
         <h4>評核資料</h4>
         <hr />
         @Html.ValidationSummary(true)
-        @Html.HiddenFor(model => model.id)
+        @Html.HiddenFor(model => model.tsa.id)
+        @Html.HiddenFor(model => model.pageno)
+        @Html.HiddenFor(model => model.v_itemsPerPage)
+        @Html.HiddenFor(model => model.v_sortOrder)
+        @Html.HiddenFor(model => model.v_currentFilter)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.emp, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.tsa.emp, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.emp)
-                @Html.DisplayFor(model => model.emp1.eid)
-                @Html.DisplayFor(model => model.emp1.cname)
-                @Html.ValidationMessageFor(model => model.emp)
+                @Html.DisplayFor(model => model.tsa.emp)
+                @Html.DisplayFor(model => model.tsa.emp1.eid)
+                @Html.DropDownListFor(x => x.tsa.emp, Model.empList)
+                @Html.ValidationMessageFor(model => model.tsa.emp)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.exm, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.tsa.exm, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.exm)
-                @Html.DisplayFor(model => model.exm1.subject)
-                @Html.ValidationMessageFor(model => model.exm)
+                @Html.DisplayFor(model => model.tsa.exm)
+                @Html.DropDownListFor(x => x.tsa.exm, Model.exmList)
+                @Html.ValidationMessageFor(model => model.tsa.exm)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.boss, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.tsa.boss, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.boss)
-                @Html.DisplayFor(model => model.emp2.eid)
-                @Html.DisplayFor(model => model.emp2.cname)
-                @Html.ValidationMessageFor(model => model.boss)
+                @Html.DisplayFor(model => model.tsa.boss)
+                @Html.DisplayFor(model => model.tsa.emp2.eid)
+                @Html.DropDownListFor(x => x.tsa.boss, Model.bossList)
+                @Html.ValidationMessageFor(model => model.tsa.boss)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.vl, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.tsa.vl, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.vl)
-                @Html.ValidationMessageFor(model => model.vl)
+                @Html.EditorFor(model => model.tsa.vl)
+                @Html.ValidationMessageFor(model => model.tsa.vl)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.suggest, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.tsa.suggest, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.suggest, 5, 50, new { })
-                @Html.ValidationMessageFor(model => model.suggest)
+                @Html.TextAreaFor(model => model.tsa.suggest, 5, 50, new { })
+                @Html.ValidationMessageFor(model => model.tsa.suggest)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.lockAudit, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.tsa.lockAudit, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.lockAudit)
-                @Html.ValidationMessageFor(model => model.lockAudit)
+                @Html.EditorFor(model => model.tsa.lockAudit)
+                @Html.ValidationMessageFor(model => model.tsa.lockAudit)
             </div>
         </div>
 
@@ -79,7 +83,7 @@
 }
 
 <div>
-    @Html.ActionLink("返回評核紀錄", "Index")
+    @Html.ActionLink("返回評核紀錄", "Index", new { page = Model.pageno, itemsPerPage = Model.v_itemsPerPage, sortOrder = Model.v_sortOrder, searchString = Model.v_currentFilter })
 </div>
 
 @section Scripts {

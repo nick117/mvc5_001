@@ -56,7 +56,7 @@
 }
 
 <div>
-    @Html.ActionLink("返回員工清單", "Index")
+    @Html.ActionLink("返回員工清單", "Index", new { page = ViewBag.CurrentPage, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter })
 </div>
 
 @section Scripts {

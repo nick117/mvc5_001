@@ -1,0 +1,235 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Getting Ajax data example</title>
+
+    <!-- CSS -->
+    <link href="css/layout.css" rel="stylesheet" type="text/css" media="screen" />
+
+    <!--[if IE 6]><link rel="stylesheet" type="text/css" media="screen" href="css/ie6.css" /><![endif]-->
+    <!--[if IE 7]><link rel="stylesheet" type="text/css" media="screen" href="css/ie7.css" /><![endif]-->
+    <!-- JavaScripts-->
+    <!--<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.8.17.custom.min.js"></script>
+    <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="js/jquery.ToTop.js"></script>
+    <script type="text/javascript" src="js/custom.js"></script>
+
+    <script type="text/javascript" src="http://design2u.me/example/jsonp/test.txt"></script>
+
+
+    <style rel="stylesheet">
+        #result {
+            padding: 30px;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+	function ajaxCall(target){
+
+	//發出 ajax call
+	var data = $.ajax({
+		type: "POST",
+		url: target
+	});
+
+	//成功得到資料
+	data.success(function( msg ) {
+		$("#result").html(msg);
+	});
+
+	//取得資料失敗
+	data.error(function( msg ) {
+		$("#result").html("fail getting data");
+	});
+
+}
+
+function ajaxCallJsonp(target,options){
+
+	//console.log("target="+target);
+	//console.log("options="+options);
+	//console.log("options length="+options.length);
+	//console.log("options[action]="+options["action"]);
+
+	var data = $.getJSON(target,options);
+
+	//empty content
+	$("#result").html("");
+
+	//成功得到資料
+	data.success(function( msg ) {
+
+		//flickr data
+	    if (target == "http://api.flickr.com/services/feeds/groups_pool.gne?id=998875@N22&lang=en-us&format=json&jsoncallback=?") {
+	        var iStart = Math.floor(Math.random() * (11));
+
+	        // Reset our counter to 0
+	        var iCount = 0;
+
+	        // Start putting together the HTML string
+	        var htmlString = "<ul>";
+	        $.each(msg.items, function (i, item) {
+//			  $("#result").append($("<img/>").attr("src", item.media.m));
+//			  if ( i == 10 ) {
+//			  	return false;
+//			  }
+	            // Let's only display 9 photos (a 3x3 grid), starting from a random point in the feed					
+	            if (iCount > iStart && iCount < (iStart + 10)) {
+
+	                // I only want the ickle square thumbnails
+	                var sourceSquare = (item.media.m).replace("_m.jpg", "_s.jpg");
+
+	                // Here's where we piece together the HTML
+	                htmlString += '<li><a href="' + item.link + '" target="_blank">';
+	                htmlString += '<img src="' + sourceSquare + '" alt="' + item.title + '" title="' + item.title + '"/>';
+	                htmlString += '</a></li>';
+	            }
+	            // Increase our counter by 1
+	            iCount++;
+	        });
+	        $('#result').html(htmlString + "</ul>");
+		}
+		//my data
+		else if(target=="http://design2u.me/example/jsonp/index.php?callback=?"){
+			$("#result").html('得到亂數 =  '+msg.number);
+		}
+		//other
+		else{
+			$("#result").html("取得資料成功，但未得到被定義的資料");
+		}
+
+
+
+	});
+
+	//取得資料失敗
+	data.error(function( msg ) {
+		$("#result").html("fail getting data");
+	});
+
+}
+
+$(function(){
+
+	//從同樣的 domain 拿資料
+	$("#getSameDomainData").click(function(){
+		ajaxCall("jquery.min.js");
+	});
+
+	//從不同的 domain 拿文件
+	$("#getDifferentDomainDocument").click(function(){
+		alert(differentDomainDocument);
+	});
+
+	//從不同的 domain 拿資料
+	$("#getDifferentDomainData").click(function(){
+		ajaxCall("http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js");
+	});
+
+	//從不同的 domain 拿資料 ( Server 端需使用 jsonp 格式)
+	$("#getDifferentDomainDataViaJsonp").click(function(){
+		var options = {
+			tags: "mount rainier",
+			tagmode: "any",
+			format: "json"
+		};
+		ajaxCallJsonp("http://api.flickr.com/services/feeds/groups_pool.gne?id=998875@N22&lang=en-us&format=json&jsoncallback=?", options);
+	});
+
+	//從不同的 domain 拿資料 ( Server 端需使用 jsonp 格式)
+	$("#getDifferentDomainDataViaJsonp2").click(function(){
+		var options = {
+			action:"getData"
+		};
+		ajaxCallJsonp("http://design2u.me/example/jsonp/index.php?callback=?",options);
+	});
+
+	//定時拿資料
+	$("#getDifferentDomainDataViaJsonp3").click(function(){
+		var url = "http://design2u.me/example/jsonp/index.php?callback=?";
+		var timer = setInterval("getData('"+url+"')",1000);
+	});
+
+	//換一種方法 (其實 $.getJSON 跟 $.ajax 是一樣的, 但記得要加 dataType: "json",
+	$("#getDifferentDomainDataDifferentMethod").click(function(){
+		var options = {
+			action:"getData"
+		};
+		ajaxCallJsonp("http://design2u.me/example/jsonp/index.php?callback=?",options);
+
+		$.ajax({
+			type : "POST",// the default
+			dataType: "json",
+			async : false,
+			data : options,
+			url : "http://design2u.me/example/jsonp/index.php",
+			success: function(data) {
+
+				$.each(msg.items, function(i,item){
+					//my data
+					if(target=="http://design2u.me/example/jsonp/index.php"){
+						$("#result").html('得到亂數 =  '+msg.number);
+					}
+					//other
+					else{
+						$("#result").html("取得資料成功，但未得到被定義的資料");
+					}
+				});
+			}
+		});
+
+	});
+});
+
+//因為 setTimeout 不能夠傳陣列參數，所以在此重新宣告
+function getData(url){
+	var options = {
+		action:"getData"
+	};
+	ajaxCallJsonp(url,options);
+}
+
+    </script>
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <div id="header">
+            <div class="logo">Getting Ajax data：</div>
+            <div class="headerRight">made by <a target="_blank" href="http://Design2u.me/blog">http://Design2u.me/blog</a></div>
+        </div>
+
+        <div id="contentWrapper">
+            <hr>
+            <div id="content">
+                <!--
+                <button id="getSameDomainData">從同網域拿文件</button>
+                <button id="getDifferentDomainDocument">從不同網域拿文件</button>
+                <button id="getDifferentDomainData">從不同網域拿資料</button> -->
+                <button id="getDifferentDomainDataViaJsonp">從 flickr 拿資料 </button>
+                <!--
+                <button id="getDifferentDomainDataViaJsonp2">從 PHP server 拿資料</button>
+                <button id="getDifferentDomainDataViaJsonp3">定 PHP server 定時拿資料</button>
+                <button id="getDifferentDomainDataDifferentMethod">換一種寫法</button> -->
+                <div id="result"></div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        © 2012 Design2u.me/blog
+    </div>
+
+</body>
+</html>
+

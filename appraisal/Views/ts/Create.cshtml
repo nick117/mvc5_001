@@ -18,7 +18,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.emp, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.emp)
+                @Html.DropDownListFor(model => model.emp, (IEnumerable<SelectListItem>)ViewBag.DropDownList2, "---選擇員工---")
                 @Html.ValidationMessageFor(model => model.emp)
             </div>
         </div>
@@ -26,7 +26,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.exm, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.exm)
+                @Html.DropDownListFor(model => model.exm, (IEnumerable<SelectListItem>)ViewBag.DropDownList1, "---選擇評核類別---")
                 @Html.ValidationMessageFor(model => model.exm)
             </div>
         </div>
@@ -34,7 +34,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.boss, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.boss)
+                @Html.DropDownListFor(model => model.boss, (IEnumerable<SelectListItem>)ViewBag.DropDownList2, "---選擇主管---")
                 @Html.ValidationMessageFor(model => model.boss)
             </div>
         </div>
@@ -72,7 +72,7 @@
 }
 
 <div>
-    @Html.ActionLink("返回評核紀錄", "Index")
+    @Html.ActionLink("返回評核紀錄", "Index", new { page = ViewBag.CurrentPage, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter })
 </div>
 
 @section Scripts {

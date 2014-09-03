@@ -16,6 +16,10 @@
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.emp1.id)
+        @Html.HiddenFor(model => model.pageno)
+        @Html.HiddenFor(model => model.v_itemsPerPage)
+        @Html.HiddenFor(model => model.v_sortOrder)
+        @Html.HiddenFor(model => model.v_currentFilter)
 
         <div class="form-group">
             @Html.LabelFor(model => model.emp1.eid, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -59,7 +63,7 @@
 }
 
 <div>
-    @Html.ActionLink("返回員工清單", "Index")
+    @Html.ActionLink("返回員工清單", "Index", new { page = Model.pageno, itemsPerPage = Model.v_itemsPerPage, sortOrder = Model.v_sortOrder, searchString = Model.v_currentFilter })
 </div>
 
 @section Scripts {

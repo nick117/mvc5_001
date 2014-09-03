@@ -29,9 +29,9 @@
             @Html.DisplayFor(modelItem => item.Vl)
         </td>
         <td>
-            @Html.ActionLink("編輯", "Edit", new { id=item.Skey }) |
-            @Html.ActionLink("明細", "Details", new { id=item.Skey }) |
-            @Html.ActionLink("刪除", "Delete", new { id=item.Skey })
+            @Html.ActionLink("編輯", "Edit", new { sid=item.Skey }) |
+            @Html.ActionLink("明細", "Details", new { sid=item.Skey }) |
+            @Html.ActionLink("刪除", "Delete", new { sid=item.Skey })
         </td>
     </tr>
 }

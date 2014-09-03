@@ -18,6 +18,7 @@ namespace appraisal.Models
         public virtual DbSet<exm> exm { get; set; }
         public virtual DbSet<ots> ots { get; set; }
         public virtual DbSet<ts> ts { get; set; }
+        public virtual DbSet<ImportTs> inportts { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -95,6 +96,54 @@ namespace appraisal.Models
 
             modelBuilder.Entity<ts>()
                 .Property(e => e.suggest)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ImportTs>()
+                .Property(e => e.Name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ImportTs>()
+                .Property(e => e.Name1)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ImportTs>()
+                .Property(e => e.Name2)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ImportTs>()
+                .Property(e => e.Name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ImportTs>()
+                .Property(e => e.Depart)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ImportTs>()
+                .Property(e => e.Group)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ImportTs>()
+                .Property(e => e.Personal)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ImportTs>()
+                .Property(e => e.Job1)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ImportTs>()
+                .Property(e => e.Job2)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ImportTs>()
+                .Property(e => e.MTitle)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ImportTs>()
+                .Property(e => e.PTitle)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ImportTs>()
+                .Property(e => e.Type)
                 .IsUnicode(false);
         }
     }
