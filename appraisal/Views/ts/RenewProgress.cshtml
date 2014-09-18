@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewBag.Title = "考核紀錄更新進度";
+}
+
+<h2>考核紀錄更新進度</h2>
+
+<h3>
+    共<span id='total' spellcheck=true></span>人已匯入<span id='complete' spellcheck=true></span>人
+</h3>
+<div id="progressbar"><div class="progress-label">Loading...</div></div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            @Html.ActionLink("返回考核紀錄清單", "Index")
+        </div>
+    }
+    @section scripts
+{
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="~/Scripts/jquery-ui.min-1.11.1.js"></script>
+<style>
+    .ui-progressbar {
+        position: relative;
+    }
+
+    .progress-label {
+        position: absolute;
+        left: 50%;
+        top: 4px;
+        font-weight: bold;
+        text-shadow: 1px 1px 0 #fff;
+    }
+</style>
+        <script type="text/javascript">
+            $(function () {
+                var pro = $("#progressbar");   //进度条div
+                var proLabel = $(".progress-label"); //进度条里面文字
+
+                pro.progressbar({
+                    value: false,   //初始化的值为0
+                    change: function () {
+                        //当value值改变时，同时修改label的字
+                        proLabel.text(pro.progressbar("value") + "%");
+                    },
+                    complete: function () {
+                        //当进度条完成时，显示complate
+                        proLabel.text("Complete!");
+                    }
+                });
+                total = "";
+                complete = "";
+                $.ajax({
+                    url: "/api/ImportApi",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (Jdata) {
+                        document.getElementById('total').innerHTML = Jdata[1];
+                        total = Jdata[1];
+                    },
+                    error: function () {
+                        alert("ERROR!!!");
+                    }
+                });
+                function progress() {
+                    $.ajax({
+                        url: "/api/tsApi",
+                        type: "GET",
+                        dataType: "json",
+                        success: function (Jdata1) {
+                            document.getElementById('complete').innerHTML = Jdata1[1];
+                            complete = Jdata1[1];
+                            var pro = $("#progressbar");
+                            var newValue = Math.floor((parseInt(complete) / parseInt(total)) * 100);
+                            pro.progressbar("value", newValue);
+                            if (total != complete) {
+                                progress();
+                            }
+                        },
+                        error: function () {
+                            alert("ERROR!!!");
+                        }
+                    });
+                };
+                progress();
+            });
+        </script>
+    }
+

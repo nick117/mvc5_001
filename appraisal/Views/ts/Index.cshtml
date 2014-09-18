@@ -12,7 +12,8 @@
       {@Html.ActionLink("新增", "Create", new { Page = Model.PageNumber, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter })}
     <button class="btn btn-primary" id="ButtonExport" name="ButtonExport">
         匯出資料
-    </button>                                                                                                                                                                                           
+    </button> 
+    @Html.ActionLink("記錄全部刪除並重新匯入", "Renew", new { Page = Model.PageNumber, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter })                                                                                                                                                                                          
     @Html.PagedListPager(Model, page => Url.Action("Index", new { page, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter})
                     , new PagedListRenderOptions { LinkToFirstPageFormat = "<<首頁", LinkToPreviousPageFormat = "<上一頁", LinkToNextPageFormat = "下一頁>", LinkToLastPageFormat = "末頁>>", MaximumPageNumbersToDisplay = 5 })
 </p>

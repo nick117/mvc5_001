@@ -38,6 +38,9 @@ namespace appraisal.Models
          [ForeignKey("dept")]
         public virtual dep dep { get; set; }
 
+        [ForeignKey("eid")]
+         public virtual ImportTs ImportTs { get; set; }
+
         [ForeignKey("emp")]
         public virtual ICollection<ts> ts1 { get; set; }
 

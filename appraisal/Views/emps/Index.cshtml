@@ -31,6 +31,9 @@
             @Html.ActionLink("部門名稱", "Index", new { page = 1, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.DateSortParm, searchString =  ViewBag.CurrentFilter })
         </th>
         <th>
+            匯入部門組別
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().title)
         </th>
         <th>
@@ -55,6 +58,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.dep.title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImportTs.Depart)/@Html.DisplayFor(modelItem => item.ImportTs.Group)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.title)

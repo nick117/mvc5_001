@@ -1,14 +1,17 @@
 ﻿using System;
 using System.IO;
+using System.Net;
 using appraisal.Models;
 using appraisal.Infrastructure.Helpers;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using appraisal.Filters;
 using PagedList;
 
 namespace appraisal.Controllers
@@ -18,17 +21,79 @@ namespace appraisal.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: ImportTs
-        public ActionResult Index(int page = 1)
+        public ActionResult Index(int? page)
         {
-            int currentPage = page < 1 ? 1 : page;
-
             var query = db.importtss
                             .OrderBy(x => x.CardNo);
 
-            var result = query.ToPagedList(currentPage, 10);
+            var result = query.ToPagedList(pageNumber: page ?? 1, pageSize: 20);
 
             return View(result);
         }
+        public ActionResult Details(string id, int? page)
+        {
+            if (id == "")
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ImportTs its = db.importtss.Find(id);
+            if (its == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.CurrentPage = page;
+            return View(its);
+        }
+
+        public ActionResult UpdateEmp(int? page)
+        {
+            ViewBag.CurrentPage = page;
+            return View();
+        }
+
+        [HttpPost, ActionName("UpdateEmp")]
+        public ActionResult UpdateEmpConfirmed(int? page)
+        {
+            string newTitle;
+            string newGroup;
+            int newDep = 0;
+            var find = from data in db.importtss
+                       where data.CardNo1 != null
+                       select data;
+            foreach (var item in find)
+            {
+                newTitle = String.IsNullOrEmpty(item.MTitle) ? item.PTitle : item.MTitle;
+                newGroup = String.IsNullOrEmpty(item.Group) ? "" : item.Group;
+                var deps = db.deps.Where(s => s.title.Contains(item.Depart.Trim()) && s.title.Contains(newGroup)).FirstOrDefault();
+                if (deps != null)
+                {
+                        newDep = deps.id;
+                }
+                else
+                { newDep = 0; }
+                var empq = db.emps.Where(s => s.eid.ToUpper().Equals(item.CardNo.ToUpper())).FirstOrDefault();
+                if (empq != null)
+                {
+                    empq.title = newTitle;
+//                    emp1.dept = (newDep == 0) ? emp1.dept : newDep;
+                    db.Entry(empq).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    emp empa = new emp();
+                    empa.eid = item.CardNo;
+                    empa.cname = item.Name;
+                    empa.title = newTitle;
+                    empa.dept = (newDep == 0) ? 1 : newDep;                 
+                    db.emps.Add(empa);
+                    db.SaveChanges();
+                }
+            }
+
+            return RedirectToAction("Index", new { page = page });
+        }
+
 
         private string fileSavedPath = WebConfigurationManager.AppSettings["UploadPath"];
 

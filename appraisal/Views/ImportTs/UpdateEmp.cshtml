@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "更新員工資料";
+}
+
+<h2>更新員工資料</h2>
+
+<h3>您想清楚了確定要更新員工資料嗎?</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="我很確定要更新員工資料" class="btn btn-default" /> |
+        @Html.ActionLink("返回匯入考核資料", "Index", new { page = ViewBag.CurrentPage })
+    </div>
+}
+

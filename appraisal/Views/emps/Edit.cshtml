@@ -42,6 +42,7 @@
             <div class="col-md-10">
                 @Html.DisplayFor(model => model.emp1.dept)
                 @Html.DropDownListFor(x => x.emp1.dept, Model.depList)
+                @Html.DisplayFor(model => model.emp1.ImportTs.Depart)/@Html.DisplayFor(model => model.emp1.ImportTs.Group)
                 @Html.ValidationMessageFor(model => model.emp1.dept)               
             </div>
         </div>

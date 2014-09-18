@@ -1,0 +1,59 @@
+﻿@model PagedList.IPagedList<appraisal.Models.ts>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{SelectList itemsPerPageList = appraisal.Models.DefaultValues.ItemsPerPageList;}
+@{
+    ViewBag.Title = "Index";
+}
+<p>
+@Html.PagedListPager(Model, page => Url.Action("Index", new {idv = ViewBag.CIdv,page, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter })
+                    , new PagedListRenderOptions { LinkToFirstPageFormat = "<<首頁", LinkToPreviousPageFormat = "<上一頁", LinkToNextPageFormat = "下一頁>", LinkToLastPageFormat = "末頁>>", MaximumPageNumbersToDisplay = 5 })
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("卡號", "Index", new { page = 1, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.IDSortParm, searchString = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("員工姓名", "Index", new { page = 1, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.NameSortParm, searchString = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("部門名稱", "Index", new { page = 1, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.DeptSortParm, searchString = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("評核類別", "Index", new { page = 1, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.SubjSortParm, searchString = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("主管姓名", "Index", new { page = 1, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.MangSortParm, searchString = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("評核分數", "Index", new { page = 1, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.VLSortParm, searchString = ViewBag.CurrentFilter })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.emp1.eid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.emp1.cname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.emp1.dep.title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.exm1.subject)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.emp2.cname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.vl)
+            </td>
+        </tr>
+    }
+

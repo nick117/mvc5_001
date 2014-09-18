@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using appraisal.Utilities.Helper;
+using System.Web.Http;
+using System.Web.Routing;
 
 namespace appraisal
 {
@@ -15,7 +17,7 @@ namespace appraisal
         {
             //設定Fluent security
             Security.SetFluentSecurity();
-
+            GlobalConfiguration.Configure(WebApiConfig.Register);
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

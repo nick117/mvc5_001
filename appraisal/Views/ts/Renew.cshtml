@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "考核紀錄全部刪除並更新";
+}
+
+<h2>考核紀錄全部刪除並更新</h2>
+
+<h3>您想清楚了確定要刪除[全部]考核紀錄並更新嗎?</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="我很確定要全部刪除並更新" class="btn btn-default" /> |
+        @Html.ActionLink("返回考核紀錄清單", "Index", new { page = ViewBag.CurrentPage, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter })
+    </div>
+}
+
+

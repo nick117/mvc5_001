@@ -9,6 +9,11 @@
     [Table("d2014.ImportTs")]
     public partial class ImportTs
     {
+        public ImportTs()
+        {
+            emp = new HashSet<emp>();
+        }
+
             [Key]
             [Display(Name = "卡號")]
             [StringLength(5)]
@@ -65,5 +70,7 @@
             [Display(Name = "複評人員")]
             [StringLength(45)]
             public string Name2 { get; set; }
+
+            public virtual ICollection<emp> emp { get; set; }
     }
 }
