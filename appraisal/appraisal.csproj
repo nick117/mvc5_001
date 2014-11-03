@@ -97,6 +97,7 @@
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web.DataVisualization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -458,6 +459,9 @@
     <Content Include="Views\ts\Renew.cshtml" />
     <Content Include="Views\ts\RenewProgress.cshtml" />
     <Content Include="Views\tsV\Index.cshtml" />
+    <Content Include="Views\Home\GetPieChartA.cshtml" />
+    <Content Include="Views\Home\GetPieChartB.cshtml" />
+    <Content Include="Views\Home\GetPieChartC.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

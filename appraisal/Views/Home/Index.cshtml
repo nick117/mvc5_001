@@ -31,152 +31,381 @@
     @Html.HiddenFor(model => model.tsCD.id)
     if (Request.IsAuthenticated)
     {
-    <div class="abgne_tab">
-        <ul class="tabs">
-            <li><a href="#tab1">評核說明</a></li>
-            @if (ViewBag.tabA > 0)
-            {
-                <li><a href="#tab2">一般員工</a></li>}
-            @if (ViewBag.tabB > 0)
-            {
-                <li><a href="#tab3">組級員工</a></li>}
-            @if (ViewBag.tabC > 0)
-            {
-                <li><a href="#tab4">部級員工</a></li>}
-        </ul>
+        <div class="abgne_tab">
+            <ul class="tabs">
+                <li><a href="#tab1">評核說明</a></li>
+                @if (ViewBag.tabA > 0)
+                {
+                    <li><a href="#tab2">一般員工</a></li>}
+                @if (ViewBag.tabB > 0)
+                {
+                    <li><a href="#tab3">組級員工</a></li>}
+                @if (ViewBag.tabC > 0)
+                {
+                    <li><a href="#tab4">部級員工</a></li>}
+            </ul>
 
-        <div class="tab_container">
-            <div id="tab1" class="tab_content">
-                <h2>關於評核</h2>
-                <p>請先閱讀 @Html.ActionLink("關於", "About", "Home") 後再按頁籤進行評核,如果沒有出現應有評核項目請聯絡人資單位</p>
-            </div>
-            <div id="tab2" class="tab_content">
-                查詢評核紀錄,請填寫員工姓名 : (輸入*可以取消查詢條件): @Html.TextBox("searchStringA")<br />
-                只查詢未完成評核 : @Html.CheckBox("UnscoredA", (bool)ViewBag.CurScoA)<br />
-                查詢評核紀錄,請選擇部門 : <select id="NormalSelA" name="NormalSelA"></select>
-                <br /><input type="submit" value="查詢一般" name="judge" />  <span style="color:red">查詢前請先將評核中資料存檔</span><br />
-                <div class="box">
-                    <div class="box2">
-                        <span class="label"></span><p>
-                            @Html.PagedListPager(Model.tsA, page => Url.Action("Index", new { tabNo = 1, pageA = page, pageB = Model.pageB, pageC = Model.pageC, idA = Model.v_IDA, idB = Model.v_IDB, idC = Model.v_IDC, searchStringA = ViewBag.CurrentFilterA, NormalSelA = ViewBag.CurSelA, UnscoredA = ViewBag.CurScoA, sDefalut = ViewBag.sDefault }),
+            <div class="tab_container">
+                <div id="tab1" class="tab_content">
+                    <h2>關於評核</h2>
+                    <p>請先閱讀 @Html.ActionLink("關於", "About", "Home") 後再按頁籤進行評核,如果沒有出現應有評核項目請聯絡人資單位</p>
+                </div>
+                <div id="tab2" class="tab_content">
+                    查詢評核紀錄,請填寫員工姓名 : (輸入*可以取消查詢條件): @Html.TextBox("searchStringA")<br />
+                    只查詢未完成評核 : @Html.CheckBox("UnscoredA", (bool)ViewBag.CurScoA)<br />
+                    查詢評核紀錄,請選擇部門 : <select id="NormalSelA" name="NormalSelA"></select>
+                    <br /><input type="submit" value="查詢一般" name="judge" />  <span style="color:red">查詢前請先將評核中資料存檔</span><br />
+                    <div class="box">
+                        <div class="box2">
+                            <span class="label"></span><p>
+                                @Html.PagedListPager(Model.tsA, page => Url.Action("Index", new { tabNo = 1, pageA = page, pageB = Model.pageB, pageC = Model.pageC, idA = Model.v_IDA, idB = Model.v_IDB, idC = Model.v_IDC, searchStringA = ViewBag.CurrentFilterA, NormalSelA = ViewBag.CurSelA, UnscoredA = ViewBag.CurScoA, sDefalutA = ViewBag.sDefaultA, searchStringB = ViewBag.CurrentFilterB, NormalSelB = ViewBag.CurSelB, UnscoredB = ViewBag.CurScoB, sDefalutB = ViewBag.sDefaultB, searchStringC = ViewBag.CurrentFilterC, NormalSelC = ViewBag.CurSelC, UnscoredC = ViewBag.CurScoC, sDefalutC = ViewBag.sDefaultC }),
                             new PagedListRenderOptions { LinkToFirstPageFormat = "<<首頁", LinkToPreviousPageFormat = "<上一頁", LinkToNextPageFormat = "下一頁>", LinkToLastPageFormat = "末頁>>", MaximumPageNumbersToDisplay = 5 })
-                        </p>
-                        <table class="table">
-                            <tr>
-                                <th>
-                                    卡號
-                                </th>
-                                <th>
-                                    姓名
-                                </th>
-                                <th>
-                                    評核
-                                </th>
-                                <th>
-                                    評核分數
-                                </th>
-                            </tr>
-
-                            @foreach (var item in Model.tsA)
-                            {
+                            </p>
+                            <table class="table">
                                 <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.emp1.eid)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.emp1.cname)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.exm1.subject)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.vl)
-                                    </td>
-                                    <td>
-                                        @Html.ActionLink("開始評核", "Index", new { tabNo = 1, pageA = Model.pageA, pageB = Model.pageB, pageC = Model.pageC, idA = item.id, idB = Model.v_IDB, idC = Model.v_IDC, searchStringA = ViewBag.CurrentFilterA, NormalSelA = ViewBag.CurSelA, UnscoredA = ViewBag.CurScoA, sDefaultA = ViewBag.sDefaultA })
-                                    </td>
+                                    <th>
+                                        卡號
+                                    </th>
+                                    <th>
+                                        姓名
+                                    </th>
+                                    <th>
+                                        評核
+                                    </th>
+                                    <th>
+                                        評核分數
+                                    </th>
                                 </tr>
+
+                                @foreach (var item in Model.tsA)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.emp1.eid)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.emp1.cname)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.exm1.subject)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.vl)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("開始評核", "Index", new { tabNo = 1, pageA = Model.pageA, pageB = Model.pageB, pageC = Model.pageC, idA = item.id, idB = Model.v_IDB, idC = Model.v_IDC, searchStringA = ViewBag.CurrentFilterA, NormalSelA = ViewBag.CurSelA, UnscoredA = ViewBag.CurScoA, sDefaultA = ViewBag.sDefaultA, searchStringB = ViewBag.CurrentFilterB, NormalSelB = ViewBag.CurSelB, UnscoredB = ViewBag.CurScoB, sDefalutB = ViewBag.sDefaultB, searchStringC = ViewBag.CurrentFilterC, NormalSelC = ViewBag.CurSelC, UnscoredC = ViewBag.CurScoC, sDefalutC = ViewBag.sDefaultC })
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                            <span class="endlabel"></span>
+                        </div>
+                        <div class="box2">
+                            <span class="label"></span>
+                            <p>考核分配圖</p>
+                            <span class="endlabel"></span>
+                            <img id="img1" src="/Home/GetPieChartA" />
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="box3">
+                            <p>評核內容</p>
+                            <span class="label"></span>
+                            @if (Model.v_IDA > 0)
+                            {
+                                <dl class="dl-horizontal" display:inline>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.tsAD.emp1.cname)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.tsAD.emp1.cname)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.tsAD.emp1.title)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.tsAD.emp1.title)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.tsAD.emp1.dep.title)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.tsAD.emp1.dep.title)
+                                    </dd>
+                                </dl>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.tsAD.vl, htmlAttributes: new { @class = "control-label col-md-2", style = "width:150px;" })<p style="color:red;">評核分數只取小數點兩位,超過位數將四捨五入</p>
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.tsAD.vl)
+                                        <br />
+                                        <span>評核等級為</span>
+                                        <span id="divIdA" style="color:purple; font-size:xx-large"></span>
+                                        @Html.ValidationMessageFor(model => model.tsAD.vl)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.tsAD.suggest, htmlAttributes: new { @class = "control-label col-md-2", style = "width:150px;" })
+                                    <div class="col-md-10">
+                                        @Html.TextAreaFor(model => model.tsAD.suggest, htmlAttributes: new { style = "width:300px; height:120px;" })
+                                        @Html.ValidationMessageFor(model => model.tsAD.suggest)
+                                    </div>
+                                    <div display:inline>
+                                        <img src="@Url.Content("~/Content/images/emp/" + Model.tsAD.emp1.eid + ".png")" width="80" height="120" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <br>
+                                        <input type="submit" value="儲存" name="judge" class="btn btn-default" style="color:cornflowerblue;" />
+                                        &nbsp;&nbsp;@Html.ActionLink("不儲存離開", "Index", new { tabNo = 1, pageA = Model.pageA, pageB = Model.pageB, pageC = Model.pageC, idA = 0, idB = Model.v_IDB, idC = Model.v_IDC, searchStringA = ViewBag.CurrentFilterA, NormalSelA = ViewBag.CurSelA, UnscoredA = ViewBag.CurScoA, sDefaultA = ViewBag.sDefaultA, searchStringB = ViewBag.CurrentFilterB, NormalSelB = ViewBag.CurSelB, UnscoredB = ViewBag.CurScoB, sDefalutB = ViewBag.sDefaultB, searchStringC = ViewBag.CurrentFilterC, NormalSelC = ViewBag.CurSelC, UnscoredC = ViewBag.CurScoC, sDefalutC = ViewBag.sDefaultC })
+                                    </div>
+                                </div>
                             }
-                        </table>
-                        <span class="endlabel"></span>
-                    </div>
-                    <div class="box2"><span class="label"></span><p>考核分配圖</p><span class="endlabel"></span></div>
-                </div>
-                <div class="box">
-                    <div class="box3">
-                        <p>評核內容</p>
-                        <span class="label"></span>
-                        @if (Model.v_IDA > 0)
-                        {                            
-                            <dl class="dl-horizontal" display:inline>
-                                <dt>
-                                    @Html.DisplayNameFor(model => model.tsAD.emp1.cname)
-                                </dt>
-                                <dd>
-                                    @Html.DisplayFor(model => model.tsAD.emp1.cname)
-                                </dd>
-                                <dt>
-                                    @Html.DisplayNameFor(model => model.tsAD.emp1.title)
-                                </dt>
-                                <dd>
-                                    @Html.DisplayFor(model => model.tsAD.emp1.title)
-                                </dd>
-                                <dt>
-                                    @Html.DisplayNameFor(model => model.tsAD.emp1.dep.title)
-                                </dt>
-                                <dd>
-                                    @Html.DisplayFor(model => model.tsAD.emp1.dep.title)
-                                </dd>
-                            </dl>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.tsAD.vl, htmlAttributes: new { @class = "control-label col-md-2", style = "width:150px;" })<p style="color:red;">評核分數只取小數點兩位,超過位數將四捨五入</p>
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => model.tsAD.vl)
-                                    <br />
-                                    <span>評核等級為</span>
-                                    <span id="divIdA" style="color:purple; font-size:xx-large"></span>
-                                    @Html.ValidationMessageFor(model => model.tsAD.vl)
-                                </div>
-                            </div>                           
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.tsAD.suggest, htmlAttributes: new { @class = "control-label col-md-2", style = "width:150px;" })
-                                <div class="col-md-10">
-                                    @Html.TextAreaFor(model => model.tsAD.suggest, htmlAttributes: new { style = "width:300px; height:120px;" })
-                                    @Html.ValidationMessageFor(model => model.tsAD.suggest)
-                                </div>
-                                <div display:inline>
-                                    <img src="@Url.Content("~/Content/images/emp/" + Model.tsAD.emp1.eid + ".png")" width="80" height="120"/>
-                                </div>                               
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <br>
-                                    <input type="submit" value="儲存" name="judge" class="btn btn-default" style="color:cornflowerblue;" />
-                                    &nbsp;&nbsp;@Html.ActionLink("不儲存離開", "Index", new { tabNo = 1, pageA = Model.pageA, pageB = Model.pageB, pageC = Model.pageC, idA = 0, idB = Model.v_IDB, idC = Model.v_IDC, searchStringA = ViewBag.CurrentFilterA, NormalSelA = ViewBag.CurSelA, UnscoredA = ViewBag.CurScoA, sDefaultA = ViewBag.sDefaultA })
-                                </div>
-                            </div>
-                        }
-                        <span class="endlabel"></span>
+                            <span class="endlabel"></span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div id="tab3" class="tab_content">
+                <div id="tab3" class="tab_content">
+                    查詢評核紀錄,請填寫員工姓名 : (輸入*可以取消查詢條件): @Html.TextBox("searchStringB")<br />
+                    只查詢未完成評核 : @Html.CheckBox("UnscoredB", (bool)ViewBag.CurScoB)<br />
+                    查詢評核紀錄,請選擇部門 : <select id="NormalSelB" name="NormalSelB"></select>
+                    <br /><input type="submit" value="查詢組級" name="judge" />  <span style="color:red">查詢前請先將評核中資料存檔</span><br />
+                    <div class="box">
+                        <div class="box2">
+                            <span class="label"></span><p>
+                                @Html.PagedListPager(Model.tsB, page => Url.Action("Index", new { tabNo = 2, pageA = Model.pageA, pageB = page, pageC = Model.pageC, idA = Model.v_IDA, idB = Model.v_IDB, idC = Model.v_IDC, searchStringA = ViewBag.CurrentFilterA, NormalSelA = ViewBag.CurSelA, UnscoredA = ViewBag.CurScoA, sDefalutA = ViewBag.sDefaultA, searchStringB = ViewBag.CurrentFilterB, NormalSelB = ViewBag.CurSelB, UnscoredB = ViewBag.CurScoB, sDefalutB = ViewBag.sDefaultB, searchStringC = ViewBag.CurrentFilterC, NormalSelC = ViewBag.CurSelC, UnscoredC = ViewBag.CurScoC, sDefalutC = ViewBag.sDefaultC }),
+                            new PagedListRenderOptions { LinkToFirstPageFormat = "<<首頁", LinkToPreviousPageFormat = "<上一頁", LinkToNextPageFormat = "下一頁>", LinkToLastPageFormat = "末頁>>", MaximumPageNumbersToDisplay = 5 })
+                            </p>
+                            <table class="table">
+                                <tr>
+                                    <th>
+                                        卡號
+                                    </th>
+                                    <th>
+                                        姓名
+                                    </th>
+                                    <th>
+                                        評核
+                                    </th>
+                                    <th>
+                                        評核分數
+                                    </th>
+                                </tr>
 
-            </div>
-            <div id="tab4" class="tab_content">
+                                @foreach (var item in Model.tsB)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.emp1.eid)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.emp1.cname)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.exm1.subject)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.vl)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("開始評核", "Index", new { tabNo = 2, pageA = Model.pageA, pageB = Model.pageB, pageC = Model.pageC, idA = Model.v_IDA, idB = item.id, idC = Model.v_IDC, searchStringA = ViewBag.CurrentFilterA, NormalSelA = ViewBag.CurSelA, UnscoredA = ViewBag.CurScoA, sDefaultA = ViewBag.sDefaultA, searchStringB = ViewBag.CurrentFilterB, NormalSelB = ViewBag.CurSelB, UnscoredB = ViewBag.CurScoB, sDefalutB = ViewBag.sDefaultB, searchStringC = ViewBag.CurrentFilterC, NormalSelC = ViewBag.CurSelC, UnscoredC = ViewBag.CurScoC, sDefalutC = ViewBag.sDefaultC })
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                            <span class="endlabel"></span>
+                        </div>
+                        <div class="box2">
+                            <span class="label"></span>
+                            <p>考核分配圖</p>
+                            <span class="endlabel"></span>
+                            <img id="img2" src="/Home/GetPieChartB" />
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="box3">
+                            <p>評核內容</p>
+                            <span class="label"></span>
+                            @if (Model.v_IDB > 0)
+                            {
+                                <dl class="dl-horizontal" display:inline>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.tsBD.emp1.cname)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.tsBD.emp1.cname)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.tsBD.emp1.title)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.tsBD.emp1.title)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.tsBD.emp1.dep.title)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.tsBD.emp1.dep.title)
+                                    </dd>
+                                </dl>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.tsBD.vl, htmlAttributes: new { @class = "control-label col-md-2", style = "width:150px;" })<p style="color:red;">評核分數只取小數點兩位,超過位數將四捨五入</p>
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.tsBD.vl)
+                                        <br />
+                                        <span>評核等級為</span>
+                                        <span id="divIdB" style="color:purple; font-size:xx-large"></span>
+                                        @Html.ValidationMessageFor(model => model.tsBD.vl)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.tsBD.suggest, htmlAttributes: new { @class = "control-label col-md-2", style = "width:150px;" })
+                                    <div class="col-md-10">
+                                        @Html.TextAreaFor(model => model.tsBD.suggest, htmlAttributes: new { style = "width:300px; height:120px;" })
+                                        @Html.ValidationMessageFor(model => model.tsBD.suggest)
+                                    </div>
+                                    <div display:inline>
+                                        <img src="@Url.Content("~/Content/images/emp/" + Model.tsBD.emp1.eid + ".png")" width="80" height="120" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <br>
+                                        <input type="submit" value="更新" name="judge" class="btn btn-default" style="color:cornflowerblue;" />
+                                        &nbsp;&nbsp;@Html.ActionLink("不儲存離開", "Index", new { tabNo = 2, pageA = Model.pageA, pageB = Model.pageB, pageC = Model.pageC, idA = Model.v_IDA, idB = 0, idC = Model.v_IDC, searchStringA = ViewBag.CurrentFilterA, NormalSelA = ViewBag.CurSelA, UnscoredA = ViewBag.CurScoA, sDefaultA = ViewBag.sDefaultA, searchStringB = ViewBag.CurrentFilterB, NormalSelB = ViewBag.CurSelB, UnscoredB = ViewBag.CurScoB, sDefalutB = ViewBag.sDefaultB, searchStringC = ViewBag.CurrentFilterC, NormalSelC = ViewBag.CurSelC, UnscoredC = ViewBag.CurScoC, sDefalutC = ViewBag.sDefaultC })
+                                    </div>
+                                </div>
+                            }
+                            <span class="endlabel"></span>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab4" class="tab_content">
+                    查詢評核紀錄,請填寫員工姓名 : (輸入*可以取消查詢條件): @Html.TextBox("searchStringC")<br />
+                    只查詢未完成評核 : @Html.CheckBox("UnscoredC", (bool)ViewBag.CurScoC)<br />
+                    查詢評核紀錄,請選擇部門 : <select id="NormalSelC" name="NormalSelC"></select>
+                    <br /><input type="submit" value="查詢部級" name="judge" />  <span style="color:red">查詢前請先將評核中資料存檔</span><br />
+                    <div class="box">
+                        <div class="box2">
+                            <span class="label"></span><p>
+                                @Html.PagedListPager(Model.tsC, page => Url.Action("Index", new { tabNo = 3, pageA = Model.pageA, pageB = Model.pageB, pageC = page, idA = Model.v_IDA, idB = Model.v_IDB, idC = Model.v_IDC, searchStringA = ViewBag.CurrentFilterA, NormalSelA = ViewBag.CurSelA, UnscoredA = ViewBag.CurScoA, sDefalutA = ViewBag.sDefaultA, searchStringB = ViewBag.CurrentFilterB, NormalSelB = ViewBag.CurSelB, UnscoredB = ViewBag.CurScoB, sDefalutB = ViewBag.sDefaultB, searchStringC = ViewBag.CurrentFilterC, NormalSelC = ViewBag.CurSelC, UnscoredC = ViewBag.CurScoC, sDefalutC = ViewBag.sDefaultC }),
+                            new PagedListRenderOptions { LinkToFirstPageFormat = "<<首頁", LinkToPreviousPageFormat = "<上一頁", LinkToNextPageFormat = "下一頁>", LinkToLastPageFormat = "末頁>>", MaximumPageNumbersToDisplay = 5 })
+                            </p>
+                            <table class="table">
+                                <tr>
+                                    <th>
+                                        卡號
+                                    </th>
+                                    <th>
+                                        姓名
+                                    </th>
+                                    <th>
+                                        評核
+                                    </th>
+                                    <th>
+                                        評核分數
+                                    </th>
+                                </tr>
 
+                                @foreach (var item in Model.tsC)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.emp1.eid)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.emp1.cname)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.exm1.subject)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.vl)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("開始評核", "Index", new { tabNo = 3, pageA = Model.pageA, pageB = Model.pageB, pageC = Model.pageC, idA = Model.v_IDA, idB = Model.v_IDB, idC = item.id, searchStringA = ViewBag.CurrentFilterA, NormalSelA = ViewBag.CurSelA, UnscoredA = ViewBag.CurScoA, sDefaultA = ViewBag.sDefaultA, searchStringB = ViewBag.CurrentFilterB, NormalSelB = ViewBag.CurSelB, UnscoredB = ViewBag.CurScoB, sDefalutB = ViewBag.sDefaultB, searchStringC = ViewBag.CurrentFilterC, NormalSelC = ViewBag.CurSelC, UnscoredC = ViewBag.CurScoC, sDefalutC = ViewBag.sDefaultC })
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                            <span class="endlabel"></span>
+                        </div>
+                        <div class="box2">
+                            <span class="label"></span>
+                            <p>考核分配圖</p>
+                            <span class="endlabel"></span>
+                            <img id="img3" src="/Home/GetPieChartC" />
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="box3">
+                            <p>評核內容</p>
+                            <span class="label"></span>
+                            @if (Model.v_IDC > 0)
+                            {
+                                <dl class="dl-horizontal" display:inline>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.tsCD.emp1.cname)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.tsCD.emp1.cname)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.tsCD.emp1.title)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.tsCD.emp1.title)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.tsCD.emp1.dep.title)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.tsCD.emp1.dep.title)
+                                    </dd>
+                                </dl>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.tsCD.vl, htmlAttributes: new { @class = "control-label col-md-2", style = "width:150px;" })<p style="color:red;">評核分數只取小數點兩位,超過位數將四捨五入</p>
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.tsCD.vl)
+                                        <br />
+                                        <span>評核等級為</span>
+                                        <span id="divIdC" style="color:purple; font-size:xx-large"></span>
+                                        @Html.ValidationMessageFor(model => model.tsCD.vl)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.tsCD.suggest, htmlAttributes: new { @class = "control-label col-md-2", style = "width:150px;" })
+                                    <div class="col-md-10">
+                                        @Html.TextAreaFor(model => model.tsCD.suggest, htmlAttributes: new { style = "width:300px; height:120px;" })
+                                        @Html.ValidationMessageFor(model => model.tsCD.suggest)
+                                    </div>
+                                    <div display:inline>
+                                        <img src="@Url.Content("~/Content/images/emp/" + Model.tsCD.emp1.eid + ".png")" width="80" height="120" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <br>
+                                        <input type="submit" value="送出" name="judge" class="btn btn-default" style="color:cornflowerblue;" />
+                                        &nbsp;&nbsp;@Html.ActionLink("不儲存離開", "Index", new { tabNo = 3, pageA = Model.pageA, pageB = Model.pageB, pageC = Model.pageC, idA = Model.v_IDA, idB = Model.v_IDB, idC = 0, searchStringA = ViewBag.CurrentFilterA, NormalSelA = ViewBag.CurSelA, UnscoredA = ViewBag.CurScoA, sDefaultA = ViewBag.sDefaultA, searchStringB = ViewBag.CurrentFilterB, NormalSelB = ViewBag.CurSelB, UnscoredB = ViewBag.CurScoB, sDefalutB = ViewBag.sDefaultB, searchStringC = ViewBag.CurrentFilterC, NormalSelC = ViewBag.CurSelC, UnscoredC = ViewBag.CurScoC, sDefalutC = ViewBag.sDefaultC })
+                                    </div>
+                                </div>
+                            }
+                            <span class="endlabel"></span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-}
-else
-{
-    <div class="jumbotron">
-        <h1>國光生物科技2014年績效考核</h1>
-        <p class="lead">使用者請先用您的網域帳號登入後才能開始考核</p>
-    </div>
-}
+    }
+    else
+    {
+        <div class="jumbotron">
+            <h1>國光生物科技2014年績效考核</h1>
+            <p class="lead">使用者請先用您的網域帳號登入後才能開始考核</p>
+        </div>
+    }
 }
 @section scripts
 {
@@ -272,65 +501,125 @@ else
         }
     </style>
     <script>
-    $(function () {
-        // 預設顯示第一個 Tab
-        var _showTab = @(ViewBag.TabValue);
-        $('.abgne_tab').each(function () {
-            // 目前的頁籤區塊
-            var $tab = $(this);
+        $(function () {
+            // 預設顯示第一個 Tab
+            var _showTab = @(ViewBag.TabValue);
+            $('.abgne_tab').each(function () {
+                // 目前的頁籤區塊
+                var $tab = $(this);
 
-            var $defaultLi = $('ul.tabs li', $tab).eq(_showTab).addClass('active');
-            $($defaultLi.find('a').attr('href')).siblings().hide();
+                var $defaultLi = $('ul.tabs li', $tab).eq(_showTab).addClass('active');
+                $($defaultLi.find('a').attr('href')).siblings().hide();
 
-            // 當 li 頁籤被點擊時...
-            // 若要改成滑鼠移到 li 頁籤就切換時, 把 click 改成 mouseover
-            $('ul.tabs li', $tab).click(function () {
-                // 找出 li 中的超連結 href(#id)
-                var $this = $(this),
-                    _clickTab = $this.find('a').attr('href');
-                // 把目前點擊到的 li 頁籤加上 .active
-                // 並把兄弟元素中有 .active 的都移除 class
-                $this.addClass('active').siblings('.active').removeClass('active');
-                // 淡入相對應的內容並隱藏兄弟元素
-                $(_clickTab).stop(false, true).fadeIn().siblings().hide();
+                // 當 li 頁籤被點擊時...
+                // 若要改成滑鼠移到 li 頁籤就切換時, 把 click 改成 mouseover
+                $('ul.tabs li', $tab).click(function () {
+                    // 找出 li 中的超連結 href(#id)
+                    var $this = $(this),
+                        _clickTab = $this.find('a').attr('href');
+                    // 把目前點擊到的 li 頁籤加上 .active
+                    // 並把兄弟元素中有 .active 的都移除 class
+                    $this.addClass('active').siblings('.active').removeClass('active');
+                    // 淡入相對應的內容並隱藏兄弟元素
+                    $(_clickTab).stop(false, true).fadeIn().siblings().hide();
 
-                return false;
-            }).find('a').focus(function () {
-                this.blur();
+                    return false;
+                }).find('a').focus(function () {
+                    this.blur();
+                });
             });
         });
-    });
-    var _sDefA = "@(ViewBag.sDefaultA)";
-    $.ajax({
-        url: "/Home/GetD",
-        type: "POST",
-        data: { Kind: "1" },
-        dataType: "json",
-        success: function (JsonData) {
-            var $select = $('#NormalSelA');
-            var $optionD = $("<option/>").attr("value", "*").text("全部");
-            $select.append($optionD);
-            $.each(JsonData, function (i, val) {
-                if (i == "itemA") {
-                    for (var i = 0 ; val.length -1 ; i++) {
-                        $.each(val[i], function (index, o) {
-                            if (_sDefA == o.replace(/\\/g, "")){
-                                var $option = $("<option/>").attr("selected","selected").attr("value", o).text(o);
-                            }
-                            else {
-                                var $option = $("<option/>").attr("value", o).text(o);
-                            }                          
-                            $select.append($option);
-                        });
+        var _sDefA = "@(ViewBag.sDefaultA)";
+        $.ajax({
+            url: "/Home/GetD",
+            type: "POST",
+            data: { Kind: "1" },
+            dataType: "json",
+            success: function (JsonData) {
+                var $select = $('#NormalSelA');
+                var $optionD = $("<option/>").attr("value", "*").text("全部");
+                $select.append($optionD);
+                $.each(JsonData, function (i, val) {
+                    if (i == "itemA") {
+                        for (var i = 0 ; val.length -1 ; i++) {
+                            $.each(val[i], function (index, o) {
+                                if (_sDefA == o.replace(/\\/g, "")){
+                                    var $option = $("<option/>").attr("selected","selected").attr("value", o).text(o);
+                                }
+                                else {
+                                    var $option = $("<option/>").attr("value", o).text(o);
+                                }
+                                $select.append($option);
+                            });
+                        }
                     }
-                }
-            });
-        },
-        error: function () {
-            alert("/Home/GetNormal ERROR!!!");
-        }
-    });
-    var _Err = "@(ViewBag.ErrorMsg)";
+                });
+            },
+            error: function () {
+                alert("/Home/GetD ERROR_1!!!");
+            }
+        });
+        var _sDefB = "@(ViewBag.sDefaultB)";
+        $.ajax({
+            url: "/Home/GetD",
+            type: "POST",
+            data: { Kind: "3" },
+            dataType: "json",
+            success: function (JsonData) {
+                var $select = $('#NormalSelB');
+                var $optionD = $("<option/>").attr("value", "*").text("全部");
+                $select.append($optionD);
+                $.each(JsonData, function (i, val) {
+                    if (i == "itemA") {
+                        for (var i = 0 ; val.length -1 ; i++) {
+                            $.each(val[i], function (index, o) {
+                                if (_sDefB == o.replace(/\\/g, "")){
+                                    var $option = $("<option/>").attr("selected","selected").attr("value", o).text(o);
+                                }
+                                else {
+                                    var $option = $("<option/>").attr("value", o).text(o);
+                                }
+                                $select.append($option);
+                            });
+                        }
+                    }
+                });
+            },
+            error: function () {
+                alert("/Home/GetD ERROR_3!!!");
+            }
+        });
+        var _sDefC = "@(ViewBag.sDefaultC)";
+        $.ajax({
+            url: "/Home/GetD",
+            type: "POST",
+            data: { Kind: "5" },
+            dataType: "json",
+            success: function (JsonData) {
+                var $select = $('#NormalSelC');
+                var $optionD = $("<option/>").attr("value", "*").text("全部");
+                $select.append($optionD);
+                $.each(JsonData, function (i, val) {
+                    if (i == "itemA") {
+                        for (var i = 0 ; val.length -1 ; i++) {
+                            $.each(val[i], function (index, o) {
+                                if (_sDefC == o.replace(/\\/g, "")){
+                                    var $option = $("<option/>").attr("selected","selected").attr("value", o).text(o);
+                                }
+                                else {
+                                    var $option = $("<option/>").attr("value", o).text(o);
+                                }
+                                $select.append($option);
+                            });
+                        }
+                    }
+                });
+            },
+            error: function () {
+                alert("/Home/GetD ERROR_5!!!");
+            }
+        });
+        var _Err = "@(ViewBag.ErrorMsg)";
         if( _Err != "*") { alert(_Err) ;};
         $('body').on('keydown', 'input, select', function(e) {
             var self = $(this)
@@ -358,12 +647,30 @@ else
             if (a>=60) {return "C"};
             return "D";
         };
-    $("#divIdA").text(Grade($("#tsAD_vl").val()));
-    $("#tsAD_vl").change(function () {
-        var str = "";
-        str += Grade($(this).val());
-        $("#divIdA").text(str);
-    });
-    </script>
+        if ( $("#divIdA").length > 0 ) {
+            $("#divIdA").text(Grade($("#tsAD_vl").val()));
+            $("#tsAD_vl").change(function () {
+                var str = "";
+                str += Grade($(this).val());
+                $("#divIdA").text(str);
+            });
+        };
+        if ( $("#divIdB").length > 0 ) {
+            $("#divIdB").text(Grade($("#tsBD_vl").val()));
+            $("#tsBD_vl").change(function () {
+                var str = "";
+                str += Grade($(this).val());
+                $("#divIdB").text(str);
+            });
+        };
+        if ( $("#divIdC").length > 0 ) {
+            $("#divIdC").text(Grade($("#tsCD_vl").val()));
+            $("#tsCD_vl").change(function () {
+                var str = "";
+                str += Grade($(this).val());
+                $("#divIdC").text(str);
+            });
+        };
+</script>
 }
 
