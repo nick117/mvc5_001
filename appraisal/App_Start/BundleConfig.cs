@@ -28,6 +28,9 @@ namespace appraisal
                       "~/Content/bootstrap.css",
                       "~/Content/jasny-bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/oldIEBrowsersSupport").Include(
+            "~/Scripts/respond.js"));
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
+//using System.Web.Hosting;
 using System.Linq;
 using appraisal.Models;
 using appraisal.Filters;
@@ -33,14 +34,25 @@ public class AccountController : Controller
             else
             { SessionHelper.RealName = items.ToList().First().cname; }
             //取回AD Group資料塞入Session
-            var context = new PrincipalContext(ContextType.Domain, "Adimmune");
-            var userPrincipal = UserPrincipal.FindByIdentity(context,
-                                                 IdentityType.SamAccountName,
-                                                 model.UserName);
-            var UGS = userPrincipal.GetAuthorizationGroups();
             string uGroup = "";
-            foreach (var ug in UGS)
-                uGroup = uGroup + ug.Name + ";";
+            string webadmin = "K1336;K0948;K0965;K1116;K1433;";
+            if (webadmin.Contains(model.UserName.ToUpper()))
+            {
+                uGroup += "webAdmin01;";
+            };
+            string webhr = "K1336;K0948;K0965;K1116;K1433;";
+            if (webhr.Contains(model.UserName.ToUpper()))
+            {
+                uGroup +=  "webHr01;";
+            };
+ //           using (HostingEnvironment.Impersonate())
+ //           {
+ //               var context = new PrincipalContext(ContextType.Domain, "adimmune.com.tw");
+ //               var userPrincipal = UserPrincipal.FindByIdentity(context,IdentityType.SamAccountName,model.UserName);
+ //               var UGS = userPrincipal.GetAuthorizationGroups();
+ //               foreach (var ug in UGS)
+ //                   uGroup = uGroup + ug.Name + ";";
+ //           }
             SessionHelper.UserGroup = uGroup;
             FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
             if (this.Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
