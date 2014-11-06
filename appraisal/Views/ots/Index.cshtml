@@ -7,12 +7,12 @@
 <h2>考核區間日期設定</h2>
 
 <p>
-    @Html.ActionLink("新增考核區間日期", "Create")
+    <!--@Html.ActionLink("新增考核區間日期", "Create")-->
 </p>
 <table class="table">
     <tr>
         <th>
-            區間代號
+            區間
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Vl)
@@ -22,16 +22,22 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Skey)
-        </td>
+        <!--@Html.DisplayFor(modelItem => item.Skey)-->
+        @if (item.Skey == "startDate")
+        {<td>初評開始日期</td>}
+        else if (item.Skey == "startDate2")
+        {<td>複評開始日期</td>}
+        else if (item.Skey == "endDate1")
+        {<td>初評截止日期</td>}
+        else if (item.Skey == "endDate2")
+        {<td>複評截止日期</td>}
         <td>
             @Html.DisplayFor(modelItem => item.Vl)
         </td>
         <td>
-            @Html.ActionLink("編輯", "Edit", new { sid=item.Skey }) |
-            @Html.ActionLink("明細", "Details", new { sid=item.Skey }) |
-            @Html.ActionLink("刪除", "Delete", new { sid=item.Skey })
+            @Html.ActionLink("修改時間", "Edit", new { sid=item.Skey }) 
+            <!-- | @Html.ActionLink("明細", "Details", new { sid=item.Skey }) | -->
+            <!--@Html.ActionLink("刪除", "Delete", new { sid=item.Skey }) -->
         </td>
     </tr>
 }

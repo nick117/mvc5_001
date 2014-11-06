@@ -645,7 +645,8 @@
             if (a>=85) {return "A"};
             if (a>=70) {return "B"};
             if (a>=60) {return "C"};
-            return "D";
+            if (a>=0) {return "D"};
+            return "未評核";
         };
         if ( $("#divIdA").length > 0 ) {
             $("#divIdA").text(Grade($("#tsAD_vl").val()));

@@ -19,13 +19,22 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Skey, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DisplayFor(model => model.Skey)
+                <!--@Html.DisplayFor(model => model.Skey)-->
+                @if (Model.Skey == "startDate")
+                {<p>初評開始日期</p>}
+                else if (Model.Skey == "startDate2")
+                {<p>複評開始日期</p>}
+                else if (Model.Skey == "endDate1")
+                {<p>初評截止日期</p>}
+                else if (Model.Skey == "endDate2")
+                {<p>複評截止日期</p>}
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Vl, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Vl)
+                <!--@Html.EditorFor(model => model.Vl)-->
+                @Html.TextBoxFor(model => model.Vl, new { @class = "form-control datepicker", placeholder = "Enter date here..." })
                 @Html.ValidationMessageFor(model => model.Vl)
             </div>
         </div>
@@ -44,4 +53,12 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () { // will trigger when the document is ready
+            $('.datepicker').datepicker({
+                format: 'yyyy/mm/dd'
+            }); //Initialise any date pickers
+        });
+    </script>
 }
+

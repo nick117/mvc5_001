@@ -21,7 +21,7 @@ namespace appraisal.Controllers
         [LogActionFilter(ControllerName = "評核時間管理", ActionName = "瀏覽")]
         public ActionResult Index()
         {
-            return View(db.ots.ToList());
+            return View(db.ots.ToList().OrderBy(model => model.Vl));
         }
 
         // GET: ots/Details/5

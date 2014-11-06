@@ -30,7 +30,7 @@
                     <li>@Html.ActionLink("首頁", "Index", "Home")</li>
                     <li>@Html.ActionLink("關於", "About", "Home")</li>
                     <li>@Html.ActionLink("連絡方式", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("測試", "KP", "Home")</li>
+                    <!--<li>@Html.ActionLink("測試", "KP", "Home")</li>-->
                 </ul>                             
                 @Html.Partial("_LoginPartial")
                 @if (Request.IsAuthenticated)
@@ -41,14 +41,14 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:red">後台管理<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
+                                    <li><a href="@Url.Action("Index", "ots")"><i class="icon-off"></i>評核時間</a></li>
                                     <li><a href="@Url.Action("Index", "ts")"><i class="icon-off"></i>評核紀錄</a></li>
-                                    @if (Session["UserGroup"].ToString().Contains("webAdmin01;"))
-                                    {
-                                    <li><a href="@Url.Action("Index", "ImportTs")"><i class="icon-off"></i>匯入評核紀錄</a></li>
+                                    <li><a href="@Url.Action("Index", "ImportTs")"><i class="icon-off"></i>匯入評核資料</a></li>
                                     <li><a href="@Url.Action("Index", "emps")"><i class="icon-off"></i>員工</a></li>
                                     <li><a href="@Url.Action("Index", "deps")"><i class="icon-off"></i>部門</a></li>
-                                    <li><a href="@Url.Action("Index", "exms")"><i class="icon-off"></i>評核類別</a></li>
-                                    <li><a href="@Url.Action("Index", "ots")"><i class="icon-off"></i>評核時間</a></li>                                   
+                                    @if (Session["UserGroup"].ToString().Contains("webAdmin01;"))
+                                    {                                    
+                                    <li><a href="@Url.Action("Index", "exms")"><i class="icon-off"></i>評核類別</a></li>                                                                       
                                     <li><a href="@Url.Action("Index", "actlogs")"><i class="icon-off"></i>Logs</a></li>
                                     }
                                 </ul>
