@@ -93,7 +93,14 @@
                                             @Html.DisplayFor(modelItem => item.vl)
                                         </td>
                                         <td>
-                                            @Html.ActionLink("開始評核", "Index", new { tabNo = 1, pageA = Model.pageA, pageB = Model.pageB, pageC = Model.pageC, idA = item.id, idB = Model.v_IDB, idC = Model.v_IDC, searchStringA = ViewBag.CurrentFilterA, NormalSelA = ViewBag.CurSelA, UnscoredA = ViewBag.CurScoA, sDefaultA = ViewBag.sDefaultA, searchStringB = ViewBag.CurrentFilterB, NormalSelB = ViewBag.CurSelB, UnscoredB = ViewBag.CurScoB, sDefalutB = ViewBag.sDefaultB, searchStringC = ViewBag.CurrentFilterC, NormalSelC = ViewBag.CurSelC, UnscoredC = ViewBag.CurScoC, sDefalutC = ViewBag.sDefaultC })
+                                            @if (Session["Readed"] == "OK")
+                                            {
+                                                @Html.ActionLink("開始評核", "Index", new { tabNo = 1, pageA = Model.pageA, pageB = Model.pageB, pageC = Model.pageC, idA = item.id, idB = Model.v_IDB, idC = Model.v_IDC, searchStringA = ViewBag.CurrentFilterA, NormalSelA = ViewBag.CurSelA, UnscoredA = ViewBag.CurScoA, sDefaultA = ViewBag.sDefaultA, searchStringB = ViewBag.CurrentFilterB, NormalSelB = ViewBag.CurSelB, UnscoredB = ViewBag.CurScoB, sDefalutB = ViewBag.sDefaultB, searchStringC = ViewBag.CurrentFilterC, NormalSelC = ViewBag.CurSelC, UnscoredC = ViewBag.CurScoC, sDefalutC = ViewBag.sDefaultC })
+                                            }
+                                            else
+                                            {
+                                                @Html.ActionLink("閱讀說明", "About", "Home")
+                                            }
                                         </td>
                                     </tr>
                                 }
@@ -160,6 +167,37 @@
                                         &nbsp;&nbsp;@Html.ActionLink("不儲存離開", "Index", new { tabNo = 1, pageA = Model.pageA, pageB = Model.pageB, pageC = Model.pageC, idA = 0, idB = Model.v_IDB, idC = Model.v_IDC, searchStringA = ViewBag.CurrentFilterA, NormalSelA = ViewBag.CurSelA, UnscoredA = ViewBag.CurScoA, sDefaultA = ViewBag.sDefaultA, searchStringB = ViewBag.CurrentFilterB, NormalSelB = ViewBag.CurSelB, UnscoredB = ViewBag.CurScoB, sDefalutB = ViewBag.sDefaultB, searchStringC = ViewBag.CurrentFilterC, NormalSelC = ViewBag.CurSelC, UnscoredC = ViewBag.CurScoC, sDefalutC = ViewBag.sDefaultC })
                                     </div>
                                 </div>
+                                if (Model.tsAD.exm == 2)
+                                {<div>
+                                    <table class="table">
+                                        <tr>
+                                            <th>
+                                                初評者
+                                            </th>
+                                            <th>
+                                                評核分數
+                                            </th>
+                                            <th>
+                                                評核建議
+                                            </th>
+                                        </tr>
+
+                                        @foreach (var item in Model.ts1A)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.emp2.cname)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.vl)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.suggest)
+                                                </td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </div>}
                             }
                             <span class="endlabel"></span>
                         </div>
@@ -208,7 +246,14 @@
                                             @Html.DisplayFor(modelItem => item.vl)
                                         </td>
                                         <td>
-                                            @Html.ActionLink("開始評核", "Index", new { tabNo = 2, pageA = Model.pageA, pageB = Model.pageB, pageC = Model.pageC, idA = Model.v_IDA, idB = item.id, idC = Model.v_IDC, searchStringA = ViewBag.CurrentFilterA, NormalSelA = ViewBag.CurSelA, UnscoredA = ViewBag.CurScoA, sDefaultA = ViewBag.sDefaultA, searchStringB = ViewBag.CurrentFilterB, NormalSelB = ViewBag.CurSelB, UnscoredB = ViewBag.CurScoB, sDefalutB = ViewBag.sDefaultB, searchStringC = ViewBag.CurrentFilterC, NormalSelC = ViewBag.CurSelC, UnscoredC = ViewBag.CurScoC, sDefalutC = ViewBag.sDefaultC })
+                                            @if (Session["Readed"] == "OK")
+                                            {
+                                                @Html.ActionLink("開始評核", "Index", new { tabNo = 2, pageA = Model.pageA, pageB = Model.pageB, pageC = Model.pageC, idA = Model.v_IDA, idB = item.id, idC = Model.v_IDC, searchStringA = ViewBag.CurrentFilterA, NormalSelA = ViewBag.CurSelA, UnscoredA = ViewBag.CurScoA, sDefaultA = ViewBag.sDefaultA, searchStringB = ViewBag.CurrentFilterB, NormalSelB = ViewBag.CurSelB, UnscoredB = ViewBag.CurScoB, sDefalutB = ViewBag.sDefaultB, searchStringC = ViewBag.CurrentFilterC, NormalSelC = ViewBag.CurSelC, UnscoredC = ViewBag.CurScoC, sDefalutC = ViewBag.sDefaultC })
+                                            }
+                                            else
+                                            {
+                                                @Html.ActionLink("閱讀說明", "About", "Home")
+                                            }
                                         </td>
                                     </tr>
                                 }
@@ -275,6 +320,37 @@
                                         &nbsp;&nbsp;@Html.ActionLink("不儲存離開", "Index", new { tabNo = 2, pageA = Model.pageA, pageB = Model.pageB, pageC = Model.pageC, idA = Model.v_IDA, idB = 0, idC = Model.v_IDC, searchStringA = ViewBag.CurrentFilterA, NormalSelA = ViewBag.CurSelA, UnscoredA = ViewBag.CurScoA, sDefaultA = ViewBag.sDefaultA, searchStringB = ViewBag.CurrentFilterB, NormalSelB = ViewBag.CurSelB, UnscoredB = ViewBag.CurScoB, sDefalutB = ViewBag.sDefaultB, searchStringC = ViewBag.CurrentFilterC, NormalSelC = ViewBag.CurSelC, UnscoredC = ViewBag.CurScoC, sDefalutC = ViewBag.sDefaultC })
                                     </div>
                                 </div>
+                                if (Model.tsBD.exm == 4)
+                                {<div>
+                                    <table class="table">
+                                        <tr>
+                                            <th>
+                                                初評者
+                                            </th>
+                                            <th>
+                                                評核分數
+                                            </th>
+                                            <th>
+                                                評核建議
+                                            </th>
+                                        </tr>
+
+                                        @foreach (var item in Model.ts1B)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.emp2.cname)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.vl)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.suggest)
+                                                </td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </div>}
                             }
                             <span class="endlabel"></span>
                         </div>
@@ -323,7 +399,14 @@
                                             @Html.DisplayFor(modelItem => item.vl)
                                         </td>
                                         <td>
-                                            @Html.ActionLink("開始評核", "Index", new { tabNo = 3, pageA = Model.pageA, pageB = Model.pageB, pageC = Model.pageC, idA = Model.v_IDA, idB = Model.v_IDB, idC = item.id, searchStringA = ViewBag.CurrentFilterA, NormalSelA = ViewBag.CurSelA, UnscoredA = ViewBag.CurScoA, sDefaultA = ViewBag.sDefaultA, searchStringB = ViewBag.CurrentFilterB, NormalSelB = ViewBag.CurSelB, UnscoredB = ViewBag.CurScoB, sDefalutB = ViewBag.sDefaultB, searchStringC = ViewBag.CurrentFilterC, NormalSelC = ViewBag.CurSelC, UnscoredC = ViewBag.CurScoC, sDefalutC = ViewBag.sDefaultC })
+                                            @if (Session["Readed"] == "OK")
+                                            {
+                                                @Html.ActionLink("開始評核", "Index", new { tabNo = 3, pageA = Model.pageA, pageB = Model.pageB, pageC = Model.pageC, idA = Model.v_IDA, idB = Model.v_IDB, idC = item.id, searchStringA = ViewBag.CurrentFilterA, NormalSelA = ViewBag.CurSelA, UnscoredA = ViewBag.CurScoA, sDefaultA = ViewBag.sDefaultA, searchStringB = ViewBag.CurrentFilterB, NormalSelB = ViewBag.CurSelB, UnscoredB = ViewBag.CurScoB, sDefalutB = ViewBag.sDefaultB, searchStringC = ViewBag.CurrentFilterC, NormalSelC = ViewBag.CurSelC, UnscoredC = ViewBag.CurScoC, sDefalutC = ViewBag.sDefaultC })
+                                            }
+                                            else
+                                            {
+                                                @Html.ActionLink("閱讀說明", "About", "Home")
+                                            }
                                         </td>
                                     </tr>
                                 }
@@ -390,6 +473,37 @@
                                         &nbsp;&nbsp;@Html.ActionLink("不儲存離開", "Index", new { tabNo = 3, pageA = Model.pageA, pageB = Model.pageB, pageC = Model.pageC, idA = Model.v_IDA, idB = Model.v_IDB, idC = 0, searchStringA = ViewBag.CurrentFilterA, NormalSelA = ViewBag.CurSelA, UnscoredA = ViewBag.CurScoA, sDefaultA = ViewBag.sDefaultA, searchStringB = ViewBag.CurrentFilterB, NormalSelB = ViewBag.CurSelB, UnscoredB = ViewBag.CurScoB, sDefalutB = ViewBag.sDefaultB, searchStringC = ViewBag.CurrentFilterC, NormalSelC = ViewBag.CurSelC, UnscoredC = ViewBag.CurScoC, sDefalutC = ViewBag.sDefaultC })
                                     </div>
                                 </div>
+                                if (Model.tsCD.exm == 6)
+                                {<div>
+                                    <table class="table">
+                                        <tr>
+                                            <th>
+                                                初評者
+                                            </th>
+                                            <th>
+                                                評核分數
+                                            </th>
+                                            <th>
+                                                評核建議
+                                            </th>
+                                        </tr>
+
+                                        @foreach (var item in Model.ts1C)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.emp2.cname)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.vl)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.suggest)
+                                                </td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </div>}
                             }
                             <span class="endlabel"></span>
                         </div>

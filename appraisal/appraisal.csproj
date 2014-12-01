@@ -381,6 +381,7 @@
     <Content Include="Scripts\i18n\grid.locale-vi.js" />
     <Content Include="Scripts\jasny-bootstrap.js" />
     <Content Include="Scripts\jasny-bootstrap.min.js" />
+    <Content Include="Schema\附件1-績效考核_HR.doc" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.0.js" />
     <Content Include="Scripts\jquery-1.9.0.min.js" />

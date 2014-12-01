@@ -27,8 +27,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("首頁", "Index", "Home")</li>
-                    <li>@Html.ActionLink("關於", "About", "Home")</li>
+                    <!--<li>@Html.ActionLink("首頁", "Index", "Home")</li>-->
+                    <li>@Html.ActionLink("說明", "About", "Home")</li>
                     <li>@Html.ActionLink("連絡方式", "Contact", "Home")</li>
                     <!--<li>@Html.ActionLink("測試", "KP", "Home")</li>-->
                 </ul>                             
@@ -43,13 +43,13 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="@Url.Action("Index", "ots")"><i class="icon-off"></i>評核時間</a></li>
                                     <li><a href="@Url.Action("Index", "ts")"><i class="icon-off"></i>評核紀錄</a></li>
-                                    <li><a href="@Url.Action("Index", "ImportTs")"><i class="icon-off"></i>匯入評核資料</a></li>
-                                    <li><a href="@Url.Action("Index", "emps")"><i class="icon-off"></i>員工</a></li>
-                                    <li><a href="@Url.Action("Index", "deps")"><i class="icon-off"></i>部門</a></li>
                                     @if (Session["UserGroup"].ToString().Contains("webAdmin01;"))
-                                    {                                    
-                                    <li><a href="@Url.Action("Index", "exms")"><i class="icon-off"></i>評核類別</a></li>                                                                       
-                                    <li><a href="@Url.Action("Index", "actlogs")"><i class="icon-off"></i>Logs</a></li>
+                                    {
+                                        <li><a href="@Url.Action("Index", "ImportTs")"><i class="icon-off"></i>匯入評核資料</a></li>
+                                        <li><a href="@Url.Action("Index", "emps")"><i class="icon-off"></i>員工</a></li>
+                                        <li><a href="@Url.Action("Index", "deps")"><i class="icon-off"></i>部門</a></li>
+                                        <li><a href="@Url.Action("Index", "exms")"><i class="icon-off"></i>評核類別</a></li>
+                                        <li><a href="@Url.Action("Index", "actlogs")"><i class="icon-off"></i>Logs</a></li>
                                     }
                                 </ul>
                             </li>

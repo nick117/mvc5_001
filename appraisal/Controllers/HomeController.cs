@@ -247,6 +247,36 @@ namespace appraisal.Controllers
                 tsBD = temptsb,
                 tsCD = temptsc
             };
+            if (viewModels.v_IDA != 0)
+            {
+                if (r1 == 2)
+                {
+                    itemA = items.Where(s => s.exm.Equals(1)
+                      & s.emp.Equals(viewModels.tsAD.emp)
+                          );
+                    viewModels.ts1A = itemA.ToPagedList(pageNumber: 1, pageSize: 5);
+                };
+            };
+            if (viewModels.v_IDB != 0)
+            {
+                if (r2 == 4)
+                {
+                    itemA = items.Where(s => s.exm.Equals(3)
+                      & s.emp.Equals(viewModels.tsBD.emp)
+                          );
+                    viewModels.ts1B = itemA.ToPagedList(pageNumber: 1, pageSize: 5);
+                };
+            };
+            if (viewModels.v_IDC != 0)
+            {
+                if (r3 == 6)
+                {
+                    itemA = items.Where(s => s.exm.Equals(5)
+                      & s.emp.Equals(viewModels.tsCD.emp)
+                          );
+                    viewModels.ts1C = itemA.ToPagedList(pageNumber: 1, pageSize: 5);
+                };
+            };
             return View(viewModels);
         }
 
@@ -504,6 +534,13 @@ namespace appraisal.Controllers
                 tsv.tsAD = items.FirstOrDefault(x => x.id == tsv.v_IDA);
             } else {
                 tsv.tsAD = ts1.FirstOrDefault(x => x.id == tsv.v_IDA);
+                if (r1 == 2)
+                {
+                    itemA = items.Where(s => s.exm.Equals(1)
+                      & s.emp.Equals(tsv.tsAD.emp)
+                          );
+                    tsv.ts1A = itemA.ToPagedList(pageNumber: 1, pageSize: 5);
+                };
             };
             if (tsv.v_IDB == 0)
             {
@@ -512,6 +549,13 @@ namespace appraisal.Controllers
             else
             {
                 tsv.tsBD = ts2.FirstOrDefault(x => x.id == tsv.v_IDB);
+                if (r2 == 4)
+                {
+                    itemA = items.Where(s => s.exm.Equals(3)
+                      & s.emp.Equals(tsv.tsBD.emp)
+                          );
+                    tsv.ts1B = itemA.ToPagedList(pageNumber: 1, pageSize: 5);
+                };
             };
             if (tsv.v_IDC == 0)
             {
@@ -520,6 +564,13 @@ namespace appraisal.Controllers
             else
             {
                 tsv.tsCD = ts3.FirstOrDefault(x => x.id == tsv.v_IDC);
+                if (r3 == 6)
+                {
+                    itemA = items.Where(s => s.exm.Equals(5)
+                      & s.emp.Equals(tsv.tsCD.emp)
+                          );
+                    tsv.ts1C = itemA.ToPagedList(pageNumber: 1, pageSize: 5);
+                };
             };
             tsv.pageA = (int)pageA;
             tsv.pageB = (int)pageB;
@@ -531,9 +582,10 @@ namespace appraisal.Controllers
         }
 
 
-        [LogActionFilter(ControllerName = "首頁", ActionName = "關於")]
+        [LogActionFilter(ControllerName = "首頁", ActionName = "說明")]
         public ActionResult About()
         {
+            SessionHelper.Readed = "OK";
             ViewBag.Message = "國光生物科技(股)公司2014年員工績效考核表";
 
             return View();
@@ -542,7 +594,7 @@ namespace appraisal.Controllers
         [LogActionFilter(ControllerName = "首頁", ActionName = "聯絡方式")]
         public ActionResult Contact()
         {
-            ViewBag.Message = "公司信箱：biz@adimmune.com.tw";
+            ViewBag.Message = "意見信箱：Cherry_Chen@adimmune.com.tw";
 
             return View();
         }

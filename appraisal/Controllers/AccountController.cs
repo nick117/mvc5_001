@@ -35,12 +35,12 @@ public class AccountController : Controller
             { SessionHelper.RealName = items.ToList().First().cname; }
             //取回AD Group資料塞入Session
             string uGroup = "";
-            string webadmin = "K1336;K0948;K0965;K1116;K1433;";
+            string webadmin = "K0948;K0965;K1116;K1336;";
             if (webadmin.Contains(model.UserName.ToUpper()))
             {
                 uGroup += "webAdmin01;";
             };
-            string webhr = "K1336;K0948;K0965;K1116;K1433;";
+            string webhr = "K0224;K0945;K0717;K1433;";
             if (webhr.Contains(model.UserName.ToUpper()))
             {
                 uGroup +=  "webHr01;";
@@ -69,7 +69,7 @@ public class AccountController : Controller
         return this.View(model);
     }
 
-    [LogActionFilter(ControllerName = "權限管理", ActionName = "已登出")]
+    //[LogActionFilter(ControllerName = "權限管理", ActionName = "已登出")]
     public ActionResult LogOff()
     {
         SessionHelper.UserGroup = "";

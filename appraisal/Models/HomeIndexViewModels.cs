@@ -12,6 +12,10 @@ namespace appraisal.Models
         public PagedList.IPagedList<ts> tsB { get; set; }
         public PagedList.IPagedList<ts> tsC { get; set; }
 
+        public PagedList.IPagedList<ts> ts1A { get; set; }
+        public PagedList.IPagedList<ts> ts1B { get; set; }
+        public PagedList.IPagedList<ts> ts1C { get; set; }
+
         public ts tsAD { get; set; }
         public ts tsBD { get; set; }
         public ts tsCD { get; set; }

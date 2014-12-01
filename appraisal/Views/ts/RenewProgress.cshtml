@@ -1,9 +1,9 @@
 ﻿
 @{
-    ViewBag.Title = "考核紀錄更新進度";
+    ViewBag.Title = "評核紀錄更新進度";
 }
 
-<h2>考核紀錄更新進度</h2>
+<h2>評核紀錄更新進度</h2>
 
 <h3>
     共<span id='total' spellcheck=true></span>人已匯入<span id='complete' spellcheck=true></span>人
@@ -14,7 +14,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            @Html.ActionLink("返回考核紀錄清單", "Index")
+            @Html.ActionLink("返回評核紀錄清單", "Index")
         </div>
     }
     @section scripts

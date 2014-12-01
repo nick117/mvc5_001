@@ -12,7 +12,7 @@ using appraisal.Filters;
 namespace appraisal.Controllers
 {
     //[Authorize(Users = @"administrator, K1336")]
-    [AuthorizeAD(Groups = "webAdmin01")]
+    [AuthorizeAD(Groups = "webAdmin01,webHr01")]
     public class otsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

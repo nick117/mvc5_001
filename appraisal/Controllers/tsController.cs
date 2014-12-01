@@ -232,7 +232,7 @@ namespace appraisal.Controllers
             return RedirectToAction("Index", new { page = page, itemsPerPage = itemsPerPage, sortOrder = sortOrder, searchString = searchString });
         }
 
-        [AuthorizeAD(Groups = "webAdmin01")]
+        [AuthorizeAD(Groups = "webAdmin01,webHr01")]
         public ActionResult RenewProgress()
         {
             return View();

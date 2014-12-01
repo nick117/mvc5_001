@@ -3,24 +3,26 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{SelectList itemsPerPageList = appraisal.Models.DefaultValues.ItemsPerPageList;}
 @{
-    ViewBag.Title = "考核紀錄";
+    ViewBag.Title = "評核紀錄";
 }
 
-<h2>考核紀錄</h2>
+<h2>評核紀錄</h2>
 
-<p>@if (Session["UserGroup"].ToString().Contains("webAdmin01;"))
-      {@Html.ActionLink("新增", "Create", new { Page = Model.PageNumber, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter })}
+<p>
+    @if (Session["UserGroup"].ToString().Contains("webAdmin01;"))
+    {@Html.ActionLink("新增", "Create", new { Page = Model.PageNumber, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter })
     <button class="btn btn-primary" id="ButtonExport" name="ButtonExport">
         匯出資料
-    </button> 
-    @Html.ActionLink("記錄全部刪除並重新匯入", "Renew", new { Page = Model.PageNumber, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter })                                                                                                                                                                                          
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter})
+    </button>
+    @Html.ActionLink("記錄全部刪除並重新匯入", "Renew", new { Page = Model.PageNumber, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter })
+    }
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter })
                     , new PagedListRenderOptions { LinkToFirstPageFormat = "<<首頁", LinkToPreviousPageFormat = "<上一頁", LinkToNextPageFormat = "下一頁>", LinkToLastPageFormat = "末頁>>", MaximumPageNumbersToDisplay = 5 })
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("卡號", "Index", new { page = 1, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.IDSortParm, searchString =ViewBag.CurrentFilter })
+            @Html.ActionLink("卡號", "Index", new { page = 1, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.IDSortParm, searchString = ViewBag.CurrentFilter })
         </th>
         <th>
             @Html.ActionLink("員工姓名", "Index", new { page = 1, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.NameSortParm, searchString = ViewBag.CurrentFilter })
@@ -40,35 +42,36 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.emp1.eid)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.emp1.cname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.emp1.dep.title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.exm1.subject)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.emp2.cname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.vl)
-        </td>
-        <td>
-            @if (Session["UserGroup"].ToString().Contains("webAdmin01;"))
-            {@Html.ActionLink("編輯", "Edit", new { id = item.id, Page = Model.PageNumber, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter })}             
-            | @Html.ActionLink("明細", "Details", new { id = item.id, Page = Model.PageNumber, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter }) |
-            @if (Session["UserGroup"].ToString().Contains("webAdmin01;")) 
-            {@Html.ActionLink("刪除", "Delete", new { id = item.id, Page = Model.PageNumber, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter }) }             
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.emp1.eid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.emp1.cname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.emp1.dep.title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.exm1.subject)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.emp2.cname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.vl)
+            </td>
+            <td>
+                @if (Session["UserGroup"].ToString().Contains("webAdmin01;"))
+                {@Html.ActionLink("編輯", "Edit", new { id = item.id, Page = Model.PageNumber, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter })}
+                | @Html.ActionLink("明細", "Details", new { id = item.id, Page = Model.PageNumber, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter }) |
+                @if (Session["UserGroup"].ToString().Contains("webAdmin01;"))
+                {@Html.ActionLink("刪除", "Delete", new { id = item.id, Page = Model.PageNumber, itemsPerPage = ViewBag.CurrentItemsPerPage, sortOrder = ViewBag.OldSortParm, searchString = ViewBag.CurrentFilter }) }
+            </td>
+        </tr>
+    }
 
 </table>
 @if (Model != null && Model.PageCount > 0)

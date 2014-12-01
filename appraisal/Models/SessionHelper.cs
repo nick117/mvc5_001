@@ -11,6 +11,7 @@ namespace appraisal.Models
         public const string COUNTERVAR = "Counter";
         public const string TEXTVAR = "RealName";
         public const string TEXTVAR1 = "UserGroup";
+        public const string TEXTVAR2 = "Readed";
 
         public static T Read<T>(string variable)
         {
@@ -59,6 +60,18 @@ namespace appraisal.Models
             set
             {
                 Write(TEXTVAR1, value);
+            }
+        }
+
+        public static string Readed
+        {
+            get
+            {
+                return Read<string>(TEXTVAR2);
+            }
+            set
+            {
+                Write(TEXTVAR2, value);
             }
         }
     }
